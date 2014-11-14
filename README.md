@@ -3,6 +3,9 @@ eecs285
 
 EECS 285 : Preliminary Spec : v0.1
 
+Check Trello for Tasks
+
+
 [NL == Not Listed in original markup - these are features that have been added to the spec after the original creation]
 
 ##Abstract
