@@ -1,48 +1,120 @@
 package eecs285.proj4.GUI;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JScrollBar;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.SwingConstants;
 
-/**
- * This class creates the FedexSimulator JFrame and is the main GUI class.
- */
-
-public class main_window extends JFrame
+public class Test_Panel extends JFrame
 {
+
+  private JPanel contentPane;
+  private JTextField Header;
+  private JTextField Paragraph;
+
   /**
-   * Constructor. This creates the JFrame that controls the simulation.
+   * Launch the application.
    */
-
-  
-  public main_window()
+  public static void main(String[] args)
   {
-    
-    
-    //making the main stuff
-    super("This is the prototype");
-    JPanel framePanel = new JPanel();
-    framePanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-    setContentPane(framePanel);
-    framePanel.setLayout(new BoxLayout(framePanel, BoxLayout.X_AXIS));
-    
-    //separate it into two panels
-    JPanel leftPanel = new JPanel();
-    JPanel rightPanel = new JPanel();    
-    framePanel.add(leftPanel);
-    framePanel.add(rightPanel);
-    
-    leftPanel.add(createFeaturesPanel());
-    rightPanel.add(createOutputPanel());
-    
-    
-    setJMenuBar(makeMenuBar());
-    pack();
+    EventQueue.invokeLater(new Runnable()
+    {
+      public void run()
+      {
+        try
+        {
+          Test_Panel frame = new Test_Panel();
+          frame.setVisible(true);
+        }
+        catch( Exception e )
+        {
+          e.printStackTrace();
+        }
+      }
+    });
+  }
 
+  /**
+   * Create the frame.
+   */
+  public Test_Panel()
+  {
+    super("This is the prototype");
+
+    setJMenuBar(makeMenuBar());
+    
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setBounds(100, 100, 689, 524);
+    contentPane = new JPanel();
+    contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+    setContentPane(contentPane);
+    contentPane.setLayout(null);
+    
+    JLabel label = new JLabel("New label");
+    label.setBounds(472, -122, 61, 268);
+    contentPane.add(label);
+    
+    JScrollPane scrollPane = new JScrollPane();
+    scrollPane.setBounds(305, 26, 372, 465);
+    contentPane.add(scrollPane);
+    
+    JLabel HeaderLabel = new JLabel("Create Header:");
+    HeaderLabel.setBounds(14, 26, 95, 16);
+    contentPane.add(HeaderLabel);
+    
+    Header = new JTextField();
+    Header.setText("Default Value");
+    Header.setBounds(121, 26, 134, 28);
+    contentPane.add(Header);
+    Header.setColumns(10);
+    
+    JButton HeaderButton = new JButton("Add Header");
+    HeaderButton.setBounds(6, 54, 103, 29);
+    contentPane.add(HeaderButton);
+    
+    JComboBox comboBox = new JComboBox();
+    comboBox.setBounds(121, 55, 134, 27);
+    contentPane.add(comboBox);
+    
+    Paragraph = new JTextField();
+    Paragraph.setText("Default Value");
+    Paragraph.setColumns(10);
+    Paragraph.setBounds(99, 130, 196, 179);
+    contentPane.add(Paragraph);
+    
+    JLabel lblAppendParagraph = new JLabel("Content:");
+    lblAppendParagraph.setBounds(11, 211, 76, 16);
+    contentPane.add(lblAppendParagraph);
+    
+    JButton AppendParagraph = new JButton("Append Paragraph");
+    AppendParagraph.setBounds(0, 338, 147, 29);
+    contentPane.add(AppendParagraph);
+    
+    JComboBox comboBox_1 = new JComboBox();
+    comboBox_1.setBounds(159, 339, 134, 27);
+    contentPane.add(comboBox_1);
+    
+    JButton ExportWebsiteButton = new JButton("Export Website");
+    ExportWebsiteButton.setBounds(57, 451, 171, 29);
+    contentPane.add(ExportWebsiteButton);
+    
+    JButton AddImageButton = new JButton("Add Image");
+    AddImageButton.setBounds(57, 410, 161, 29);
+    contentPane.add(AddImageButton);
   }
   
   JMenuBar makeMenuBar(){
@@ -64,54 +136,5 @@ public class main_window extends JFrame
     
   }
  
-  JPanel createFeaturesPanel(){
-    //base features panel
-    JPanel FeaturesPanel = new JPanel();
-    //FeaturesPanel.setLayout(new BoxLayout(FeaturesPanel, BoxLayout.Y_AXIS));
-    FeaturesPanel.setLayout(new GridLayout(3,1));
-    //smaller parts within this panel
-    
-    //header content
-    JPanel HeaderContent = new JPanel(new FlowLayout());
-    JLabel HeaderContentLabel = new JLabel("Header Content");
-    JTextArea inputHeader = new JTextArea("Default Value");
-    HeaderContent.add(HeaderContentLabel);
-    HeaderContent.add(inputHeader);
-    FeaturesPanel.add(HeaderContent);
-    
-    //paragraph content
-    JPanel ParagraphContent = new JPanel(new FlowLayout());
-    JLabel ParagraphContentLabel = new JLabel("Paragraph Content");
-    JTextArea inputParagraph = new JTextArea("Default Value");
-    ParagraphContent.add(ParagraphContentLabel);
-    ParagraphContent.add(inputParagraph);
-    FeaturesPanel.add(ParagraphContent);
-    
-    JButton addImage = new JButton("Add Image");
-    FeaturesPanel.add(addImage);
-    
-    return FeaturesPanel;
-  }
-  
-  JPanel createOutputPanel(){
-    JPanel OutputPanel = new JPanel();
-    //OutputPanel.setLayout(new BoxLayout(OutputPanel,BoxLayout.Y_AXIS));
-    OutputPanel.setLayout(new BorderLayout());
-    JLabel preview = new JLabel("------  PREVIEW  -------");
-    OutputPanel.add(preview, BorderLayout.NORTH);
-    JTextArea output = new JTextArea("");
-    output.setSize(new Dimension(1000,500));
-    output.setEditable(false);
-    JScrollPane realOutput = new JScrollPane(output);
-    realOutput.setSize(new Dimension(1000,500));
-    OutputPanel.add(realOutput, BorderLayout.SOUTH);
-    return OutputPanel;
-  }
-  
-  JPanel createHeaderMiniPanel(){
-    JPanel headerPanel = new JPanel();
-    return headerPanel;
-  }
-  // ---------------------------------------------------------------------------
   
 }
