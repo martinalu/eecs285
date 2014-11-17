@@ -19,7 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 
-public class Test_Panel extends JFrame
+public class main_window extends JFrame
 {
 
   private JPanel contentPane;
@@ -27,31 +27,9 @@ public class Test_Panel extends JFrame
   private JTextField Paragraph;
 
   /**
-   * Launch the application.
-   */
-  public static void main(String[] args)
-  {
-    EventQueue.invokeLater(new Runnable()
-    {
-      public void run()
-      {
-        try
-        {
-          Test_Panel frame = new Test_Panel();
-          frame.setVisible(true);
-        }
-        catch( Exception e )
-        {
-          e.printStackTrace();
-        }
-      }
-    });
-  }
-
-  /**
    * Create the frame.
    */
-  public Test_Panel()
+  public main_window()
   {
     super("This is the prototype");
 
