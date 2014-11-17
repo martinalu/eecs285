@@ -1,6 +1,10 @@
 eecs285
 =======
 
+Resources :
+https://docs.oracle.com/javafx/2/webview/jfxpub-webview.htm
+https://docs.oracle.com/javase/tutorial/jdbc/overview/index.html
+
 EECS 285 : Preliminary Spec : v0.1
 
 Update Trello to keep the team updated on progress/challenges/questions.
