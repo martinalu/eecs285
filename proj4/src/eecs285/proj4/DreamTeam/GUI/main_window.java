@@ -13,6 +13,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JScrollBar;
 import javax.swing.JButton;
@@ -24,7 +25,7 @@ public class main_window extends JFrame
 
   private JPanel contentPane;
   private JTextField Header;
-  private JTextField Paragraph;
+  private JTextArea Paragraph;
 
   /**
    * Create the frame.
@@ -42,13 +43,13 @@ public class main_window extends JFrame
     setContentPane(contentPane);
     contentPane.setLayout(null);
     
-    JLabel label = new JLabel("New label");
+    JLabel label = new JLabel("***Preview stuff***");
     label.setBounds(472, -122, 61, 268);
     contentPane.add(label);
     
-    JScrollPane scrollPane = new JScrollPane();
-    scrollPane.setBounds(305, 26, 372, 465);
-    contentPane.add(scrollPane);
+    JTextArea output_area = new JTextArea();
+    output_area.setBounds(305, 26, 372, 465);
+    contentPane.add(output_area);
     
     JLabel HeaderLabel = new JLabel("Create Header:");
     HeaderLabel.setBounds(14, 26, 95, 16);
@@ -68,7 +69,7 @@ public class main_window extends JFrame
     comboBox.setBounds(121, 55, 134, 27);
     contentPane.add(comboBox);
     
-    Paragraph = new JTextField();
+    Paragraph = new JTextArea();
     Paragraph.setText("Default Value");
     Paragraph.setColumns(10);
     Paragraph.setBounds(99, 130, 196, 179);
