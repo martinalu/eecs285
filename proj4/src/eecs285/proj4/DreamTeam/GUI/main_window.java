@@ -1,4 +1,4 @@
-package eecs285.proj4.GUI;
+package eecs285.proj4.DreamTeam.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

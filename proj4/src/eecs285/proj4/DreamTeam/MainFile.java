@@ -1,10 +1,10 @@
-package eecs285.proj4.GUI;
+package eecs285.proj4.DreamTeam;
 
 import java.awt.*;
 import javax.swing.*;
-import eecs285.proj4.GUI.main_window;
+import eecs285.proj4.DreamTeam.GUI.main_window;
 
-public class Main
+public class MainFile
 {
   public static main_window win;
   
