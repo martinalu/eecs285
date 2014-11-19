@@ -31,9 +31,6 @@ public class WebpagePreview extends JPanel {
 
     // TODO: Break up the longer string literals.
 
-    // FOR DEBUGGING ONLY
-    public static final String testHTML = "<!DOCTYPE html> <html lang=\"en\"><head><meta charset=\"UTF-8\"><title>RAWRA</title></head><body><h1>EVERYTHING HAS CHANGED</h1><p>This is CRAZY.</p></body></html>";
-
     private static final String BASE_HTML_FIRST_HALF = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><title>Document</title></head><body>";
     private static final String BASE_HTML_SECOND_HALF = "</body></html>";
 
@@ -60,6 +57,9 @@ public class WebpagePreview extends JPanel {
 
 	// Add Container
 	add(websiteContainer);
+
+	// Create Default Template and Refresh
+	generateTemplate();
     }
 
     /**
@@ -88,9 +88,12 @@ public class WebpagePreview extends JPanel {
      * 
      * @param headerContent
      */
-    public void updateHeader(String headerContent) {
+    public void updateHeader(String headerContent, String style) {
+	String styleSelected = "";
+	styleSelected = String.format("style=\"font-family: %s;\"", style);
 
-	headerHTML = "<h1>" + headerContent + "</h1>";
+	headerHTML = String.format("<h1 %s>" + headerContent + "</h1>",
+		styleSelected);
 	generateTemplate();
 
     }
@@ -100,9 +103,13 @@ public class WebpagePreview extends JPanel {
      * 
      * @param paragraphContent
      */
-    public void updateParagraph(String paragraphContent) {
+    public void updateParagraph(String paragraphContent, String style) {
 
-	paragraphHTML = "<p>" + paragraphContent + "</p>";
+	String styleSelected = "";
+	styleSelected = String.format("style=\"font-size: %s;\"", style);
+
+	paragraphHTML = String.format("<p %s>" + paragraphContent + "</p>",
+		styleSelected);
 	generateTemplate();
 
     }
@@ -125,7 +132,6 @@ public class WebpagePreview extends JPanel {
 	try {
 	    refreshPage();
 	} catch (IOException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
 
