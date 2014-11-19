@@ -29,20 +29,22 @@ public class WebpagePreview extends JPanel {
     public String altLocation = "/Users/theProfessional/Documents/gitRepos/eecs285/resources/template.html";
     public String currentHTML = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><title>RAWRA</title></head><body><h1>THIS IS A HEADER</h1><p>This is part of a paragraph.</p></body></html>";
 
+    // TODO: Break up the longer string literals.
+
     // FOR DEBUGGING ONLY
     public static final String testHTML = "<!DOCTYPE html> <html lang=\"en\"><head><meta charset=\"UTF-8\"><title>RAWRA</title></head><body><h1>EVERYTHING HAS CHANGED</h1><p>This is CRAZY.</p></body></html>";
 
     private static final String BASE_HTML_FIRST_HALF = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><title>Document</title></head><body>";
     private static final String BASE_HTML_SECOND_HALF = "</body></html>";
 
-    private static String headerHTML;
-    private static String paragraphHTML;
+    private static String headerHTML = "<h1>THIS IS A HEADER</h1>";
+    private static String paragraphHTML = "<p>This is part of a paragraph. This is part of a paragraph. This is part of a paragraph. This is part of a paragraph. This is part of a paragraph.</p>";
 
     // Web View
     private JEditorPane website = new JEditorPane();
 
     public WebpagePreview() {
-	// Add Web View
+	// Web View
 	try {
 	    website.setPage(htmlLocation);
 	} catch (Exception e) {
@@ -55,6 +57,8 @@ public class WebpagePreview extends JPanel {
 	JScrollPane websiteContainer = new JScrollPane(website);
 	websiteContainer.setVisible(true);
 	website.setPreferredSize(new Dimension(500, 400));
+
+	// Add Container
 	add(websiteContainer);
     }
 
@@ -64,7 +68,7 @@ public class WebpagePreview extends JPanel {
      * @throws IOException
      */
     private void refreshPage() throws IOException {
-	
+
 	File htmlFile = new File(altLocation);
 	// False overwrites the file. True appends to the end of the file.
 	FileWriter fooWriter = new FileWriter(htmlFile, false);

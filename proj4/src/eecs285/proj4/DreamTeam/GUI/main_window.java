@@ -14,10 +14,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
-import javax.swing.text.html.HTML;
-import javax.swing.text.html.HTMLDocument;
-import javax.swing.text.html.HTMLEditorKit;
-import javax.swing.text.html.HTMLEditorKit.InsertHTMLTextAction;
 import javax.swing.text.Element;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
@@ -34,26 +30,14 @@ import javax.swing.SwingConstants;
 
 import eecs285.proj4.DreamTeam.ModifyHTML.*;
 
+//TODO: Convert to a layout that supports resizing.
+
 public class main_window extends JFrame {
 
     private JPanel contentPane;
     private JTextField headerTextField;
-    private JTextArea Paragraph;
-    private HTMLDocument document;
-    private static HTML.Tag tag;
-    private static JEditorPane output_area = new JEditorPane();
-    private static HTMLEditorKit kit = new HTMLEditorKit();
-    private static Document doc = (HTMLDocument) kit.createDefaultDocument();
-    private static Element element;
+    private JTextArea paragraphTextArea;
     private static WebpagePreview website = new WebpagePreview();
-
-    private static String initialText = "<html>\n<head>\n<title>set the title here</title>\n"
-	    + "</head>\n<body>\n <h1>Html Document test: First header</h1>\n <ul>\n  <li><font color=red>red</font>"
-	    + "</li>\n  <li><font color=green>green</font>"
-	    + "</li>\n  <li><font size=-2>small</font></li>\n "
-	    + "  <li><i>italic</i></li>\n  <li><b>bold</b></li>\n </ul>\n <br/>\n"
-	    + "<p color= orange>This is a paragraph</p>\n"
-	    + " <hr/>\n</body>\n</html>";
 
     /**
      * Create the frame.
@@ -79,15 +63,7 @@ public class main_window extends JFrame {
 	website.setBounds(325, 26, 500, 700);
 	contentPane.add(website);
 
-	// Old HTML Rendering Code.
-
-	// output_area.setBounds(305, 26, 372, 465);
-	// output_area.setEditorKit(kit);
-	// output_area.setDocument(doc);
-	// output_area.setText(initialText);
-	// contentPane.add(output_area);
-
-	JLabel HeaderLabel = new JLabel("Create Header:");
+	JLabel HeaderLabel = new JLabel("Header Value:");
 	HeaderLabel.setBounds(14, 26, 95, 16);
 	contentPane.add(HeaderLabel);
 
@@ -97,34 +73,44 @@ public class main_window extends JFrame {
 	contentPane.add(headerTextField);
 	headerTextField.setColumns(10);
 
-	JButton HeaderButton = new JButton("Add Header");
-	HeaderButton.setBounds(6, 54, 103, 29);
-	contentPane.add(HeaderButton);
+	JButton headerButton = new JButton("Update");
+	headerButton.setBounds(6, 54, 103, 29);
+	contentPane.add(headerButton);
 
-	final JComboBox<String> comboBox = new JComboBox<String>(new String[] {
-		"<body>", "<h1>", "<p>" });
-	comboBox.setBounds(159, 339, 134, 27);
-	comboBox.setBounds(121, 55, 134, 27);
-	contentPane.add(comboBox);
+	// * Content Options - User can select ONE of TWO fonts. Georgia or
+	// Arial.
 
-	Paragraph = new JTextArea();
-	Paragraph.setText("Default Value");
-	Paragraph.setColumns(10);
-	Paragraph.setBounds(99, 130, 196, 179);
-	contentPane.add(Paragraph);
+	final JComboBox<String> headerContentComboBox = new JComboBox<String>(
+		new String[] { "Arial", "Georgia" });
+	headerContentComboBox.setBounds(159, 339, 134, 27);
+	headerContentComboBox.setBounds(121, 55, 134, 27);
+	contentPane.add(headerContentComboBox);
 
-	JLabel lblAppendParagraph = new JLabel("Content:");
-	lblAppendParagraph.setBounds(11, 211, 76, 16);
-	contentPane.add(lblAppendParagraph);
+	paragraphTextArea = new JTextArea();
+	paragraphTextArea.setText("Default Value");
+	// Turn on word wrap.
+	paragraphTextArea.setLineWrap(true);
 
-	JButton AppendParagraph = new JButton("Append Paragraph");
-	AppendParagraph.setBounds(0, 338, 147, 29);
-	contentPane.add(AppendParagraph);
+	JScrollPane paragraphTextAreaContainer = new JScrollPane(
+		paragraphTextArea);
+	paragraphTextAreaContainer.setBounds(99, 130, 196, 179);
+	contentPane.add(paragraphTextAreaContainer);
 
-	final JComboBox<String> comboBox_1 = new JComboBox<String>(
-		new String[] { "<body>", "<h1>", "<p>" });
-	comboBox_1.setBounds(159, 339, 134, 27);
-	contentPane.add(comboBox_1);
+	JLabel paragraphLabel = new JLabel("Content:");
+	paragraphLabel.setBounds(11, 211, 76, 16);
+	contentPane.add(paragraphLabel);
+
+	JButton paragraphButton = new JButton("Append Paragraph");
+	paragraphButton.setBounds(0, 338, 147, 29);
+	contentPane.add(paragraphButton);
+
+	// * Content Options - User can select from ONE of TWO font weights. 8
+	// and 14.
+
+	final JComboBox<String> paragraphContentComboBox = new JComboBox<String>(
+		new String[] { "8", "14" });
+	paragraphContentComboBox.setBounds(159, 339, 134, 27);
+	contentPane.add(paragraphContentComboBox);
 
 	JButton ExportWebsiteButton = new JButton("Export Website");
 	ExportWebsiteButton.setBounds(57, 451, 171, 29);
@@ -133,32 +119,27 @@ public class main_window extends JFrame {
 	JButton AddImageButton = new JButton("Add Image");
 	AddImageButton.setBounds(57, 410, 161, 29);
 	contentPane.add(AddImageButton);
-	
-	
-	////////////////////////////////////
+
+	// //////////////////////////////////
 	// Action Listener Implementation //
-	////////////////////////////////////
-	
-	
-	HeaderButton.addActionListener(new ActionListener() {
+	// //////////////////////////////////
+
+	headerButton.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 		website.updateHeader(headerTextField.getText());
 	    }
 	});
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	paragraphButton.addActionListener(new ActionListener() {
+
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		website.updateParagraph(paragraphTextArea.getText());
+	    }
+
+	});
+
     }
 
     JMenuBar makeMenuBar() {
@@ -178,13 +159,4 @@ public class main_window extends JFrame {
 	return menuBar;
 
     }
-
-    public static void addHeader(String a) throws BadLocationException {
-	String insertHeader = "<h1>" + a + "</h1>";
-	// int body = doc.getElement("body");
-	int pos = 2;
-	doc.insertString(pos, insertHeader, null);
-	output_area.setDocument(doc);
-    }
-
 }

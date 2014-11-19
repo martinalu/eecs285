@@ -1,23 +1,20 @@
 eecs285
 =======
 
-Resources :
-https://docs.oracle.com/javafx/2/webview/jfxpub-webview.htm
-https://docs.oracle.com/javase/tutorial/jdbc/overview/index.html
-Very useful link to add html elements: http://www.javadocexamples.com/javax/swing/text/html/HTMLDocument/insertBeforeEnd(Element%20elem,String%20htmlText).html
- 
-EECS 285 : Preliminary Spec : v0.1
+EECS 285 : Preliminary Spec : v0.1 [Prototype]
 
+
+##Notes
 Update Trello to keep the team updated on progress/challenges/questions.
 
-
 [NL == Not Listed in original markup - these are features that have been added to the spec after the original creation]
+
 
 ##Abstract
 The first prototype is going to be a proof of concept. This means that we don't have to worry about 90% of the project when we first start. The idea is to make sure that the base level of implementation works for us. There will be a limited feature set to implement on this first go round.
 
 ##GUI Description
-There will be basic HTML template that we will be customizing and rendering. There will be two main panels.^(a) Customization of the HTML will be afforded through five main sections on the left side.
+There will be basic HTML template that we will be customizing and rendering. There will be two main panels. Customization of the HTML will be afforded through five main sections on the left side.
 
 * Left Panel : This is where our element customization will go.
   * Header Content - The raw text inside the <h> html tag.
@@ -39,13 +36,9 @@ The right panel will be some sort of preview of the page. It should be a genuine
 
 I think we should also include some rudimentary user login system, just to get familiar with the JDBC package.
 
-There is an accompanying image that outlines the general structure of the program. Specific implementation is up to the individual working on that piece of code unless otherwise agreed upon. In other words, no one has the time or the patience to micromanage, so do what you think is best. However, if you think a certain GUI element or package might influence someone else's code, then obviously be sure to inform that person.^(b)
+There is an accompanying image that outlines the general structure of the program. Specific implementation is up to the individual working on that piece of code unless otherwise agreed upon. In other words, no one has the time or the patience to micromanage, so do what you think is best. However, if you think a certain GUI element or package might influence someone else's code, then obviously be sure to inform that person.
 
-(a) : Note: I am describing the project, not defining specific implementation. i.e. When I say "Panel", I don't mean "JPanel". I am merely describing an element. Implementation is up to you unless otherwise agreed upon.
-
-
-(b) : "Should I use JDialogBox, JMessageBox, or JOptionPane?" - I have no idea.
-    - Try one.
-
-"I want to use X element, but using X will mean that we can't use elements A or B in the main left Panel"
-    - Good to know, lets talk about our options.
+##Helpful Resources
+https://docs.oracle.com/javafx/2/webview/jfxpub-webview.htm
+https://docs.oracle.com/javase/tutorial/jdbc/overview/index.html
+Very useful link to add html elements: http://www.javadocexamples.com/javax/swing/text/html/HTMLDocument/insertBeforeEnd(Element%20elem,String%20htmlText).html
