@@ -74,7 +74,7 @@ public class WebpagePreview extends JPanel {
     }
 
     /**
-     * Refreshes the web view by modifying the
+     * Refreshes the web view by calling setPage() on the "website" variable.
      * 
      * @throws IOException
      */

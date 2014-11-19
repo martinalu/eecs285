@@ -1,7 +1,7 @@
 package eecs285.proj4.DreamTeam.ModifyHTML;
 
 
-/*
+/**
  * This class is going to be where the java methods that modify the HTML will go.
  * 
  *    Refer to our README.md in the project directory- specifically the 
