@@ -71,21 +71,20 @@ public class main_window extends JFrame {
 
 	headerTextField = new JTextField();
 	headerTextField.setText("Default Value");
-	headerTextField.setBounds(121, 26, 134, 28);
+	headerTextField.setBounds(125, 25, 134, 25);
 	contentPane.add(headerTextField);
 	headerTextField.setColumns(10);
 
 	JButton headerButton = new JButton("Update");
-	headerButton.setBounds(6, 54, 103, 29);
+	headerButton.setBounds(6, 75, 103, 29);
 	contentPane.add(headerButton);
 
 	// * Content Options - User can select ONE of TWO fonts. Georgia or
 	// Arial.
 
 	final JComboBox<String> headerContentComboBox = new JComboBox<String>(
-		new String[] { "Arial", "Georgia" });
-	headerContentComboBox.setBounds(159, 339, 134, 27);
-	headerContentComboBox.setBounds(121, 55, 134, 27);
+		new String[] { "Times", "Arial", "Georgia", "Comic Sans MS", "Courier New" });
+	headerContentComboBox.setBounds(125, 75, 134, 27);
 	contentPane.add(headerContentComboBox);
 
 	paragraphTextArea = new JTextArea();
@@ -110,7 +109,7 @@ public class main_window extends JFrame {
 	// and 14.
 
 	final JComboBox<String> paragraphContentComboBox = new JComboBox<String>(
-		new String[] { "8", "14" });
+		new String[] { "10", "12", "14" });
 	paragraphContentComboBox.setBounds(159, 339, 134, 27);
 	contentPane.add(paragraphContentComboBox);
 
