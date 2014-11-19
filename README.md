@@ -4,7 +4,8 @@ eecs285
 Resources :
 https://docs.oracle.com/javafx/2/webview/jfxpub-webview.htm
 https://docs.oracle.com/javase/tutorial/jdbc/overview/index.html
-
+Very useful link to add html elements: http://www.javadocexamples.com/javax/swing/text/html/HTMLDocument/insertBeforeEnd(Element%20elem,String%20htmlText).html
+ 
 EECS 285 : Preliminary Spec : v0.1
 
 Update Trello to keep the team updated on progress/challenges/questions.

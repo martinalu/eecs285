@@ -8,6 +8,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.html.HTML;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.HTMLEditorKit.InsertHTMLTextAction;
+import javax.swing.text.Element;
+import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -20,18 +29,36 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 
+import eecs285.proj4.DreamTeam.ModifyHTML.*;
+
 public class main_window extends JFrame
 {
 
   private JPanel contentPane;
   private JTextField Header;
   private JTextArea Paragraph;
+  private HTMLDocument document;
+  private static HTML.Tag tag;
+  private static JEditorPane output_area = new JEditorPane();
+  private static HTMLEditorKit kit = new HTMLEditorKit();
+  private static Document doc  = (HTMLDocument)kit.createDefaultDocument();
+  private static Element element; 
+
+
+  private static String initialText = "<html>\n<head>\n<title>set the title here</title>\n"
+  		+ "</head>\n<body>\n <h1>Html Document test: First header</h1>\n <ul>\n  <li><font color=red>red</font>"
+  		+ "</li>\n  <li><font color=green>green</font>"
+  		+ "</li>\n  <li><font size=-2>small</font></li>\n "
+  		+ "  <li><i>italic</i></li>\n  <li><b>bold</b></li>\n </ul>\n <br/>\n"
+  		+ "<p color= orange>This is a paragraph</p>\n"
+  		+ " <hr/>\n</body>\n</html>";
 
   /**
    * Create the frame.
    */
   public main_window()
   {
+	  
     super("This is the prototype");
 
     setJMenuBar(makeMenuBar());
@@ -47,9 +74,14 @@ public class main_window extends JFrame
     label.setBounds(472, -122, 61, 268);
     contentPane.add(label);
     
-    JTextArea output_area = new JTextArea();
+    
     output_area.setBounds(305, 26, 372, 465);
+    output_area.setEditorKit(kit);
+    output_area.setDocument(doc);
+    output_area.setText(initialText);
     contentPane.add(output_area);
+    
+    
     
     JLabel HeaderLabel = new JLabel("Create Header:");
     HeaderLabel.setBounds(14, 26, 95, 16);
@@ -64,10 +96,25 @@ public class main_window extends JFrame
     JButton HeaderButton = new JButton("Add Header");
     HeaderButton.setBounds(6, 54, 103, 29);
     contentPane.add(HeaderButton);
+  
     
-    JComboBox comboBox = new JComboBox();
+    final JComboBox<String> comboBox = new JComboBox<String>(new String[]
+    		{"<body>", "<h1>", "<p>"});
+    comboBox.setBounds(159, 339, 134, 27);
     comboBox.setBounds(121, 55, 134, 27);
     contentPane.add(comboBox);
+    HeaderButton.addActionListener(new ActionListener()
+  	{
+  		public void actionPerformed(ActionEvent e)
+  		{
+  			try {
+				addHeader("first header");
+			} catch (BadLocationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+  		}
+  	});
     
     Paragraph = new JTextArea();
     Paragraph.setText("Default Value");
@@ -83,7 +130,8 @@ public class main_window extends JFrame
     AppendParagraph.setBounds(0, 338, 147, 29);
     contentPane.add(AppendParagraph);
     
-    JComboBox comboBox_1 = new JComboBox();
+    final JComboBox<String> comboBox_1 = new JComboBox<String>(new String[]
+    		{"<body>", "<h1>", "<p>"});
     comboBox_1.setBounds(159, 339, 134, 27);
     contentPane.add(comboBox_1);
     
@@ -114,6 +162,17 @@ public class main_window extends JFrame
     return menuBar;
     
   }
- 
+  
+  public static void addHeader(String a) throws BadLocationException
+  {
+		String insertHeader = "<h1>"+ a + "</h1>";
+		//int body =  doc.getElement("body");
+		int pos = 2;
+		doc.insertString(pos, insertHeader, null);
+		output_area.setDocument(doc);
+  }
+	
+  
+  
   
 }
