@@ -27,13 +27,22 @@ public class WebpagePreview extends JPanel {
     // this string below.
     public String htmlLocation = "file:///Users/theProfessional/Documents/gitRepos/eecs285/resources/template.html";
     public String altLocation = "/Users/theProfessional/Documents/gitRepos/eecs285/resources/template.html";
-    public String testHTML = "<!DOCTYPE html> <html lang=\"en\"><head><meta charset=\"UTF-8\"><title>RAWRA</title></head><body><h1>EVERYTHING HAS CHANGED</h1><p>This is CRAZY.</p></body></html>";
+    public String currentHTML = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><title>RAWRA</title></head><body><h1>THIS IS A HEADER</h1><p>This is part of a paragraph.</p></body></html>";
+
+    // FOR DEBUGGING ONLY
+    public static final String testHTML = "<!DOCTYPE html> <html lang=\"en\"><head><meta charset=\"UTF-8\"><title>RAWRA</title></head><body><h1>EVERYTHING HAS CHANGED</h1><p>This is CRAZY.</p></body></html>";
+
+    private static final String BASE_HTML_FIRST_HALF = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><title>Document</title></head><body>";
+    private static final String BASE_HTML_SECOND_HALF = "</body></html>";
+
+    private static String headerHTML;
+    private static String paragraphHTML;
 
     // Web View
     private JEditorPane website = new JEditorPane();
 
     public WebpagePreview() {
-
+	// Add Web View
 	try {
 	    website.setPage(htmlLocation);
 	} catch (Exception e) {
@@ -41,7 +50,6 @@ public class WebpagePreview extends JPanel {
 	    System.exit(ERROR);
 	}
 	website.setEditable(false);
-	// add(website);
 
 	// Web View Container
 	JScrollPane websiteContainer = new JScrollPane(website);
@@ -50,14 +58,17 @@ public class WebpagePreview extends JPanel {
 	add(websiteContainer);
     }
 
-    // Create a method to "Refresh the Window"
-    public void updatePage() throws IOException {
+    /**
+     * Refreshes the web view by modifying the
+     * 
+     * @throws IOException
+     */
+    private void refreshPage() throws IOException {
+	
 	File htmlFile = new File(altLocation);
-	FileWriter fooWriter = new FileWriter(htmlFile, false); // true to
-								// append
-								// false to
-								// overwrite.
-	fooWriter.write(testHTML);
+	// False overwrites the file. True appends to the end of the file.
+	FileWriter fooWriter = new FileWriter(htmlFile, false);
+	fooWriter.write(currentHTML);
 	fooWriter.close();
 
 	Document doc = website.getDocument();
@@ -65,7 +76,55 @@ public class WebpagePreview extends JPanel {
 
 	website.setPage(htmlLocation);
 
-	System.out.println("Call recieved");
+    }
+
+    /**
+     * Updates the string representing the header content. Helper function for
+     * updatePage.
+     * 
+     * @param headerContent
+     */
+    public void updateHeader(String headerContent) {
+
+	headerHTML = "<h1>" + headerContent + "</h1>";
+	generateTemplate();
 
     }
+
+    /**
+     * Similar in form and function to updateHeader.
+     * 
+     * @param paragraphContent
+     */
+    public void updateParagraph(String paragraphContent) {
+
+	paragraphHTML = "<p>" + paragraphContent + "</p>";
+	generateTemplate();
+
+    }
+
+    /**
+     * Assembles a string to write to the "template.html" file. Calls
+     * "refreshPage" to reflect changes in WebpagePreview GUI.
+     */
+    private void generateTemplate() {
+
+	String updatedHTML = "";
+
+	updatedHTML += BASE_HTML_FIRST_HALF;
+	updatedHTML += headerHTML;
+	updatedHTML += paragraphHTML;
+	updatedHTML += BASE_HTML_SECOND_HALF;
+
+	currentHTML = updatedHTML;
+
+	try {
+	    refreshPage();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+
+    }
+
 }

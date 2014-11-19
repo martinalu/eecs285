@@ -37,7 +37,7 @@ import eecs285.proj4.DreamTeam.ModifyHTML.*;
 public class main_window extends JFrame {
 
     private JPanel contentPane;
-    private JTextField Header;
+    private JTextField headerTextField;
     private JTextArea Paragraph;
     private HTMLDocument document;
     private static HTML.Tag tag;
@@ -91,38 +91,15 @@ public class main_window extends JFrame {
 	HeaderLabel.setBounds(14, 26, 95, 16);
 	contentPane.add(HeaderLabel);
 
-	Header = new JTextField();
-	Header.setText("Default Value");
-	Header.setBounds(121, 26, 134, 28);
-	contentPane.add(Header);
-	Header.setColumns(10);
+	headerTextField = new JTextField();
+	headerTextField.setText("Default Value");
+	headerTextField.setBounds(121, 26, 134, 28);
+	contentPane.add(headerTextField);
+	headerTextField.setColumns(10);
 
 	JButton HeaderButton = new JButton("Add Header");
 	HeaderButton.setBounds(6, 54, 103, 29);
 	contentPane.add(HeaderButton);
-	HeaderButton.addActionListener(new ActionListener() {
-	    @Override
-	    public void actionPerformed(ActionEvent e) {
-		try {
-		    website.updatePage();
-		} catch (IOException e1) {
-		    // TODO Auto-generated catch block
-		    e1.printStackTrace();
-		}
-
-	    }
-	});
-
-	// HeaderButton.addActionListener(new ActionListener() {
-	// public void actionPerformed(ActionEvent e) {
-	// try {
-	// addHeader("first header");
-	// } catch (BadLocationException e1) {
-	// // TODO Auto-generated catch block
-	// e1.printStackTrace();
-	// }
-	// }
-	// });
 
 	final JComboBox<String> comboBox = new JComboBox<String>(new String[] {
 		"<body>", "<h1>", "<p>" });
@@ -156,6 +133,32 @@ public class main_window extends JFrame {
 	JButton AddImageButton = new JButton("Add Image");
 	AddImageButton.setBounds(57, 410, 161, 29);
 	contentPane.add(AddImageButton);
+	
+	
+	////////////////////////////////////
+	// Action Listener Implementation //
+	////////////////////////////////////
+	
+	
+	HeaderButton.addActionListener(new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		website.updateHeader(headerTextField.getText());
+	    }
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
     }
 
     JMenuBar makeMenuBar() {
