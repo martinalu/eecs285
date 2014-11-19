@@ -44,6 +44,9 @@ public class WebpagePreview extends JPanel {
     private static String paragraphHTML = "<p>This is part of a paragraph. This is part of a paragraph. This is part of a paragraph. This is part of a paragraph. This is part of a paragraph.</p>";
     private static String imageHTML = "<img src=\"/Users/theProfessional/Documents/gitRepos/eecs285/resources/wolverine.jpg\"/>";
 
+    private static String[] posts =  {""};
+    
+    
     // Web View
     private JEditorPane website = new JEditorPane();
 
@@ -127,6 +130,26 @@ public class WebpagePreview extends JPanel {
     public void updateImageSource(String imageFilePath) {
 	imageHTML = String.format("<img src=\"%s\"/>", imageFilePath);
 	generateTemplate();
+    }
+
+    /**
+     * We should explore the idea of using a java image library to resize the
+     * image. We could also use a simple python script I wrote to resize the
+     * image - but that's in python.
+     * 
+     * @param imageName
+     * @param newWidth
+     * @param newHeight
+     * @param newImageName
+     * @author theProfessional
+     */
+    public void updateImageSize(String imageName, int newWidth, int newHeight,
+	    String newImageName) {
+	// String[] cmd = {
+	// "/bin/bash",
+	// "-c",
+	// "echo password | python script.py '" + packet.toString() + "'"
+	// };
     }
 
     /**
