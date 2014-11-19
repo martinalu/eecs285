@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 
 import eecs285.proj4.DreamTeam.WebViewer.*;
@@ -16,6 +17,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.Element;
 import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -116,9 +118,9 @@ public class main_window extends JFrame {
 	ExportWebsiteButton.setBounds(57, 451, 171, 29);
 	contentPane.add(ExportWebsiteButton);
 
-	JButton AddImageButton = new JButton("Add Image");
-	AddImageButton.setBounds(57, 410, 161, 29);
-	contentPane.add(AddImageButton);
+	final JButton addImageButton = new JButton("Add Image");
+	addImageButton.setBounds(57, 410, 161, 29);
+	contentPane.add(addImageButton);
 
 	// //////////////////////////////////
 	// Action Listener Implementation //
@@ -141,6 +143,22 @@ public class main_window extends JFrame {
 			paragraphContentComboBox.getSelectedItem().toString());
 	    }
 
+	});
+
+	addImageButton.addActionListener(new ActionListener() {
+
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		JFileChooser chooser = new JFileChooser();
+		File imageFile = null;
+		int chooserReturn = chooser.showOpenDialog(addImageButton);
+		if (chooserReturn == JFileChooser.APPROVE_OPTION) {
+		    imageFile = chooser.getSelectedFile();
+		}
+		String imageFilePath = imageFile.getPath();
+		website.updateImageSource(imageFilePath);
+
+	    }
 	});
 
     }
