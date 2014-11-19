@@ -1,7 +1,5 @@
-eecs285
-=======
-
 EECS 285 : Preliminary Spec : v0.1 [Prototype]
+=======
 
 
 ##Notes

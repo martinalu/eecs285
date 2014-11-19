@@ -125,9 +125,11 @@ public class main_window extends JFrame {
 	// //////////////////////////////////
 
 	headerButton.addActionListener(new ActionListener() {
+
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-		website.updateHeader(headerTextField.getText());
+		website.updateHeader(headerTextField.getText(),
+			headerContentComboBox.getSelectedItem().toString());
 	    }
 	});
 
@@ -135,7 +137,8 @@ public class main_window extends JFrame {
 
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-		website.updateParagraph(paragraphTextArea.getText());
+		website.updateParagraph(paragraphTextArea.getText(),
+			paragraphContentComboBox.getSelectedItem().toString());
 	    }
 
 	});
