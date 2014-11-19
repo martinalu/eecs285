@@ -42,7 +42,7 @@ public class WebpagePreview extends JPanel {
 
     private static String headerHTML = "<h1>THIS IS A HEADER</h1>";
     private static String paragraphHTML = "<p>This is part of a paragraph. This is part of a paragraph. This is part of a paragraph. This is part of a paragraph. This is part of a paragraph.</p>";
-    private static String imageHTML = "<img src=\"\"/>";
+    private static String imageHTML = "<img src=\"/Users/theProfessional/Documents/gitRepos/eecs285/resources/wolverine.jpg\"/>";
 
     // Web View
     private JEditorPane website = new JEditorPane();
@@ -123,7 +123,7 @@ public class WebpagePreview extends JPanel {
 	generateTemplate();
 
     }
-    
+
     public void updateImageSource(String imageFilePath) {
 	imageHTML = String.format("<img src=\"%s\"/>", imageFilePath);
 	generateTemplate();
