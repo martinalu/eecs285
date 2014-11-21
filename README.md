@@ -1,20 +1,41 @@
 Primer for v0.5 Spec
-=======
+====================
+
+###### This is not a spec. I'll put together a full project spec Saturday after our meeting.
 
 There probably isn't time for a full 1.0, so we're just gonna have to go for a really good 0.5 build. The main points are that we'll be using the core technolgies specified below. Make sure you check out the links and read them througoughly, especially if you plan on working on any specific element.
 
+I've added a new project folder to the GitHub repository. This is our v0.5, and where all the new code is going to go. Some of you may not know how to add the new project folder to eclipse through the .git repo. You should definitely do this in order to stay up to date.
+
+1. Go to Eclipse.
+* Right click the empty space in the package explorer, below your other projects.
+* Select "Import"
+* Navigate to the "Git" folder and click the dropdown arrow.
+* Select "Projects from Git" and hit next.
+* Select "Existing local repository"
+* If you don't immediately see the eecs285 git repository, click add and navigate to the folder where your .git file for eecs285 is.
+* Once you've found it and it's been added to the list, select that repository and click next.
+* Select the new project folder you added earlier and click next.
+ * Make sure the "Import existing projects" radio button is selected at the top.
+* Now, select "Finish" and the project should import.
+
+Now, the new project is synced to your local
+
+*Note: There may be a better way of doing this. If so, let me know. The above method should work for everyone, though.*
+
+
 ## Core Technologies
-##### GUI : Java SE 8 with JavaFX  
+##### GUI : Java SE 8 with JavaFX
 *There are a bunch of new layouts. Check them out.*
 
-##### HTML & CSS : Twitter Bootstrap  
+##### HTML & CSS : Twitter Bootstrap
 *Using the grid system with Bootstrap is gonna make the website layout stuff much easier.*
 
-##### Database : JDBC  
+##### Database : JDBC
 *Check out the links below, they'll clear up most questions you may have. Databases are a piece of work, but it's really just another install local to your machine, and the instructions are two paragraphs long.*
 
 
-## Useful Links
+## Recommended Reading / Useful Links
 
 [The Proper Git Workflow](https://guides.github.com/introduction/flow/)
 >Note: Pull requests are a feature of the github website. We don't need to worry about discussing anything, but if you're unsure about an implementation and you wanna let everyone review the code first, create a pull request by going to the website and hitting the green arrow lookin' button directly above and to the left of the file directory on the project's main page. Remember, we can only see your branch on GitHub if you use "Publish" in the GitHub application, or "push" in the terminal. Otherwise, it stays local and there's no way to review it. Publishing your branches also makes it really easy to see everyone's progress.
@@ -34,3 +55,23 @@ There probably isn't time for a full 1.0, so we're just gonna have to go for a r
 
 [Twitter Bootstrap](http://getbootstrap.com/getting-started/#examples)
 >If you don't know what this is, it's basically just a couple premade CSS and Javascript files that make building responsive websites easier. A responsive website is a website that restructures it's content when you resize the window. This style of website has become more an more prominant as phones have grown more popular. Fun fact: 1/3rd of all web browsing is done on a phone.
+
+## Adding Demo Projects
+
+It's worth mentioning that you can add your own small example projects to the GitHub as well- the more the merrier. Here's a step-by-step on how to do it.
+
+1. Make sure you've created a new branch in git, and you currently have that branch selected/checked out.
+ * Do this either by using the GitHub application, or using git in the terminal.
+* Create a new project in Eclipse.
+ * Create it in whatever destination you choose, this is a temporary location.
+ * Make sure to select Java SE 8
+* Right click the project in the package explorer.
+* Hover your mouse over "Show In"
+* Select "System Explorer" from the dropdown menu.
+* Copy the folder with the name of your project.
+* Paste the folder into the directory that contains your eecs285 .git file.
+* This will be the same directory that your "proj4" occupies.
+* Now, go to use git to add the new folder to the git repository.
+ * If you're using the graphic application, go to changes and hit commit.
+* Now, your branch has this new project in it.
+* Once you've done this, go back to the above instructions and begin again there.
