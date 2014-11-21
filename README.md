@@ -67,16 +67,10 @@ It's worth mentioning that you can add your own small example projects to the Gi
 
 1. Make sure you've created a new branch in git, and you currently have that branch selected/checked out.
  * Do this either by using the GitHub application, or using git in the terminal.
+* Create a new folder for your project in the same directory as your eecs285 .git file.
 * Create a new project in Eclipse.
- * Create it in whatever destination you choose, this is a temporary location.
+ * Create the project in the same directory you created earlier.
  * Make sure to select Java SE 8
-* Right click the project in the package explorer.
-* Hover your mouse over "Show In"
-* Select "System Explorer" from the dropdown menu.
-* Copy the folder with the name of your project.
-* Paste the folder into the directory that contains your eecs285 .git file.
-* This will be the same directory that your "proj4" occupies.
-* Now, go to use git to add the new folder to the git repository.
- * If you're using the graphic application, go to changes and hit commit.
-* Now, your branch has this new project in it.
-* Once you've done this, go back to the above instructions and begin again there.
+* Now just commit the the changes to your branch.
+
+Now your project is added to your branch. Create a pull request and tell me about it. I'll make sure nothing goes wrong (though there are few ways anything could).
