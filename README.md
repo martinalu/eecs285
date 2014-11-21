@@ -1,42 +1,36 @@
-EECS 285 : Preliminary Spec : v0.1 [Prototype]
+Primer for v0.5 Spec
 =======
 
+There probably isn't time for a full 1.0, so we're just gonna have to go for a really good 0.5 build. The main points are that we'll be using the core technolgies specified below. Make sure you check out the links and read them througoughly, especially if you plan on working on any specific element.
 
-##Notes
-Update Trello to keep the team updated on progress/challenges/questions.
+## Core Technologies
+##### GUI : Java SE 8 with JavaFX  
+*There are a bunch of new layouts. Check them out.*
 
-[NL == Not Listed in original markup - these are features that have been added to the spec after the original creation]
+##### HTML & CSS : Twitter Bootstrap  
+*Using the grid system with Bootstrap is gonna make the website layout stuff much easier.*
+
+##### Database : JDBC  
+*Check out the links below, they'll clear up most questions you may have. Databases are a piece of work, but it's really just another install local to your machine, and the instructions are two paragraphs long.*
 
 
-##Abstract
-The first prototype is going to be a proof of concept. This means that we don't have to worry about 90% of the project when we first start. The idea is to make sure that the base level of implementation works for us. There will be a limited feature set to implement on this first go round.
+## Useful Links
 
-##GUI Description
-There will be basic HTML template that we will be customizing and rendering. There will be two main panels. Customization of the HTML will be afforded through five main sections on the left side.
+[The Proper Git Workflow](https://guides.github.com/introduction/flow/)
+>Note: Pull requests are a feature of the github website. We don't need to worry about discussing anything, but if you're unsure about an implementation and you wanna let everyone review the code first, create a pull request by going to the website and hitting the green arrow lookin' button directly above and to the left of the file directory on the project's main page. Remember, we can only see your branch on GitHub if you use "Publish" in the GitHub application, or "push" in the terminal. Otherwise, it stays local and there's no way to review it. Publishing your branches also makes it really easy to see everyone's progress.
 
-* Left Panel : This is where our element customization will go.
-  * Header Content - The raw text inside the <h> html tag.
-    * Content Options - User can select ONE of TWO fonts. Georgia or Arial.
-  * Paragraph Content - The raw text inside the <\p> html tag.
-    * Content Options - User can select from ONE of TWO font weights. 8 and 14.
-  * Add Image Button - This will add an image to the project directory and update the html <img> tag's src attribute to reflect the location of the image. If no image is selected, use a default.
-  *  Export Website - This button will allow the user to specify a location to export a folder containing the index.html file and the image selected by the user. If the user selects no image, a default should be used.
-  *  Apply Changes (NL) - This button is will modify the HTML and reflect these changes in the page render window.
+[Needed for Java SE 8 & JavaFX](http://www.eclipse.org/efxclipse/install.html#for-the-lazy)
+>This will allow you to actually run JavaFX applications in eclipse. Don't ask me why this isn't in the standard distribution.
 
-EX: (User selects home directory)
-```
-~/myWebsite/
-~/myWebsite/index.html
-~/myWebsite/myImage.jpg
-```
+[JavaFX Layout Managers](https://blog.idrsolutions.com/2014/05/layout-manager-swing-javafx-tutorial/)
+>Java SE 8 and JavaFX introduced now, simpler layout managers called Layout Panes. They might be worth checking out, but we'll probably just hard code the coordinates of all the elements in the GUI. It's worth taking a look at, though. There may be something that makes things easier on us down the line. Some additional reading can be found [here](https://docs.oracle.com/javafx/2/layout/jfxpub-layout.htm).
 
-The right panel will be some sort of preview of the page. It should be a genuine render of the HTML.
+[JavaFX Web View](https://docs.oracle.com/javafx/2/webview/jfxpub-webview.htm)
+>This is likely going to be the main web view companant. Previously, we were using a JEditorPane displaying to display text with the built a built in option to specify that it was HTML.
 
-I think we should also include some rudimentary user login system, just to get familiar with the JDBC package.
+[JDBC Overview](http://www.tutorialspoint.com/jdbc/jdbc-quick-guide.htm)
+>Note: You must be running MAMP running. This will allow you to have a local test server. If you don't know how to use MAMP, I'll teach you at meeting.
+>OtherNote: You need to download a driver for JDBC. That's something I didn't know. MAMP uses SQL, so we're gonna need to look into how to hookup the MySQL JAR file to our Java Classpaths. If you don't know what I'm talking about, don't worry, follow this [link](http://dev.mysql.com/downloads/file.php?id=454396), download the .zip/.tar (whichever you prefer) and look at the connector-j.pdf located in the "docs" subdirectory.
 
-There is an accompanying image that outlines the general structure of the program. Specific implementation is up to the individual working on that piece of code unless otherwise agreed upon. In other words, no one has the time or the patience to micromanage, so do what you think is best. However, if you think a certain GUI element or package might influence someone else's code, then obviously be sure to inform that person.
-
-##Helpful Resources
-https://docs.oracle.com/javafx/2/webview/jfxpub-webview.htm
-https://docs.oracle.com/javase/tutorial/jdbc/overview/index.html
-Very useful link to add html elements: http://www.javadocexamples.com/javax/swing/text/html/HTMLDocument/insertBeforeEnd(Element%20elem,String%20htmlText).html
+[Twitter Bootstrap](http://getbootstrap.com/getting-started/#examples)
+>If you don't know what this is, it's basically just a couple premade CSS and Javascript files that make building responsive websites easier. A responsive website is a website that restructures it's content when you resize the window. This style of website has become more an more prominant as phones have grown more popular. Fun fact: 1/3rd of all web browsing is done on a phone.
