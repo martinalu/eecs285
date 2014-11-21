@@ -4,13 +4,13 @@ Primer for v0.5 Spec
 There probably isn't time for a full 1.0, so we're just gonna have to go for a really good 0.5 build. The main points are that we'll be using the core technolgies specified below. Make sure you check out the links and read them througoughly, especially if you plan on working on any specific element.
 
 ## Core Technologies
-GUI : Java SE 8 with JavaFX  
+##### GUI : Java SE 8 with JavaFX  
 *There are a bunch of new layouts. Check them out.*
 
-HTML & CSS : Twitter Bootstrap  
+##### HTML & CSS : Twitter Bootstrap  
 *Using the grid system with Bootstrap is gonna make the website layout stuff much easier.*
 
-Database : JDBC  
+##### Database : JDBC  
 *Check out the links below, they'll clear up most questions you may have. Databases are a piece of work, but it's really just another install local to your machine, and the instructions are two paragraphs long.*
 
 
