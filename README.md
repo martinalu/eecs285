@@ -69,6 +69,7 @@ It's worth mentioning that you can add your own small example projects to the Gi
  * Do this either by using the GitHub application, or using git in the terminal.
 * Create a new folder for your project in the same directory as your eecs285 .git file.
 * Create a new project in Eclipse.
+ * Deselect "use default location"
  * Create the project in the same directory you created earlier.
  * Make sure to select Java SE 8
 * Now just commit the the changes to your branch.
