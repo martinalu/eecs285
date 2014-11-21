@@ -31,3 +31,8 @@ https://docs.oracle.com/javafx/2/webview/jfxpub-webview.htm
 JDBC Overview
 http://www.tutorialspoint.com/jdbc/jdbc-quick-guide.htm
 Note: You must be running MAMP running. This will allow you to have a local test server. If you don't know how to use MAMP, I'll teach you at meeting.
+OtherNote: You need to download a driver for JDBC. That's something I didn't know. MAMP uses SQL, so we're gonna need to look into how to hookup the MySQL JAR file to our Java Classpaths. If you don't know what I'm talking about, don't worry, follow this link http://dev.mysql.com/downloads/file.php?id=454396, download the .zip/.tar (whichever you prefer) and look at the connector-j.pdf located in the "docs" subdirectory.
+
+The Proper Git Workflow
+https://guides.github.com/introduction/flow/
+Note: Pull requests are a feature of the github website. We don't need to worry about discussing anything, but if you're unsure about an implementation and you wanna let everyone review the code first, create a pull request by going to the website and hitting the green arrow lookin' button directly above and to the left of the file directory on the project's main page.
