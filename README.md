@@ -5,6 +5,8 @@ Primer for v0.5 Spec
 
 There probably isn't time for a full 1.0, so we're just gonna have to go for a really good 0.5 build. The main points are that we'll be using the core technolgies specified below. Make sure you check out the links and read them througoughly, especially if you plan on working on any specific element.
 
+## New Project Folder
+
 I've added a new project folder to the GitHub repository. This is our v0.5, and where all the new code is going to go. Some of you may not know how to add the new project folder to eclipse through the .git repo. You should definitely do this in order to stay up to date.
 
 1. Go to Eclipse.
@@ -43,11 +45,14 @@ Now, the new project is synced to your local
 [Needed for Java SE 8 & JavaFX](http://www.eclipse.org/efxclipse/install.html#for-the-lazy)
 >This will allow you to actually run JavaFX applications in eclipse. Don't ask me why this isn't in the standard distribution.
 
-[JavaFX Layout Managers](https://blog.idrsolutions.com/2014/05/layout-manager-swing-javafx-tutorial/)
->Java SE 8 and JavaFX introduced now, simpler layout managers called Layout Panes. They might be worth checking out, but we'll probably just hard code the coordinates of all the elements in the GUI. It's worth taking a look at, though. There may be something that makes things easier on us down the line. Some additional reading can be found [here](https://docs.oracle.com/javafx/2/layout/jfxpub-layout.htm).
+[JavaFX Tutorial ](http://code.makery.ch/java/javafx-8-tutorial-part1/)
+>This is the best tutorial I've encountered so far. As if you read one thing - *one thing* - from this README.md, it better be this page. Skim through it to get the idea if you must, but this clears up a lot. For instance, did you know that main(String[] args) isn't going to do anything anymore? You'll see why reading that page. It also explains our file hierarchy.
 
 [JavaFX Web View](https://docs.oracle.com/javafx/2/webview/jfxpub-webview.htm)
 >This is likely going to be the main web view companant. Previously, we were using a JEditorPane displaying to display text with the built a built in option to specify that it was HTML.
+
+[JavaFX Drag'n'Drop](https://docs.oracle.com/javafx/2/drag_drop/jfxpub-drag_drop.htm)
+>This documentation goes over the basics of the drag and drop capabilites of JavaFX. An example project can be found in the git repository.
 
 [JDBC Overview](http://www.tutorialspoint.com/jdbc/jdbc-quick-guide.htm)
 >Note: You must be running MAMP running. This will allow you to have a local test server. If you don't know how to use MAMP, I'll teach you at meeting.
