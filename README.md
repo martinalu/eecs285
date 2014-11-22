@@ -1,7 +1,10 @@
 Primer for v0.5 Spec
 ====================
 
+<b> OI! CHECK THE img FOLDER</b>
+
 ###### This is not a spec. I'll put together a full project spec Saturday after our meeting.
+
 
 There probably isn't time for a full 1.0, so we're just gonna have to go for a really good 0.5 build. The main points are that we'll be using the core technolgies specified below. Make sure you check out the links and read them througoughly, especially if you plan on working on any specific element.
 
