@@ -2,16 +2,16 @@ EECS 285 : Preliminary Spec : v0.1 [Prototype]
 =======
 
 
-##Notes
+## Notes
 Update Trello to keep the team updated on progress/challenges/questions.
 
 [NL == Not Listed in original markup - these are features that have been added to the spec after the original creation]
 
 
-##Abstract
+## Abstract
 The first prototype is going to be a proof of concept. This means that we don't have to worry about 90% of the project when we first start. The idea is to make sure that the base level of implementation works for us. There will be a limited feature set to implement on this first go round.
 
-##GUI Description
+## GUI Description
 There will be basic HTML template that we will be customizing and rendering. There will be two main panels. Customization of the HTML will be afforded through five main sections on the left side.
 
 * Left Panel : This is where our element customization will go.
@@ -36,7 +36,7 @@ I think we should also include some rudimentary user login system, just to get f
 
 There is an accompanying image that outlines the general structure of the program. Specific implementation is up to the individual working on that piece of code unless otherwise agreed upon. In other words, no one has the time or the patience to micromanage, so do what you think is best. However, if you think a certain GUI element or package might influence someone else's code, then obviously be sure to inform that person.
 
-##Helpful Resources
+## Helpful Resources
 https://docs.oracle.com/javafx/2/webview/jfxpub-webview.htm
 https://docs.oracle.com/javase/tutorial/jdbc/overview/index.html
 Very useful link to add html elements: http://www.javadocexamples.com/javax/swing/text/html/HTMLDocument/insertBeforeEnd(Element%20elem,String%20htmlText).html
