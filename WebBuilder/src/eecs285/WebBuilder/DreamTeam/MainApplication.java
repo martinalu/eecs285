@@ -7,7 +7,6 @@ package eecs285.WebBuilder.DreamTeam;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -20,6 +19,11 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -35,7 +39,10 @@ import javafx.stage.Stage;
  * @author theProfessional
  */
 public class MainApplication extends Application {
-    
+	
+	private static WebView webview = new WebView();
+	private static WebEngine webEngine = webview.getEngine();
+	
     @Override
     public void start(Stage primaryStage) {
    
@@ -43,25 +50,53 @@ public class MainApplication extends Application {
     	BorderPane root = new BorderPane();
     	GridPane top = new GridPane();
     	ScrollPane main = new ScrollPane();
-    	//main.setPrefSize(600, 600);
     	main.setMaxSize(600, 600);
+    	
     	HBox menu = new HBox(addFileMenu()); 
         GridPane gridLeft = addLeftMenu();
         GridPane gridRight = addTopMenu();
      
     	Scene scene = new Scene(root, 700, 750);
     
-    	WebView webview = new WebView();
-    	WebEngine webEngine = webview.getEngine();
+    	 webEngine.loadContent("<h1> first header </h1>");  
+    	 webview.setOnDragOver(new EventHandler <DragEvent>() {
+             public void handle(DragEvent event) {
+                 /* data is dragged over the target */
+                 System.out.println("onDragOver");
+                 
+                 /* accept it only if it is  not dragged from the same node 
+                  * and if it has a string data */
+                 if (event.getGestureSource() != webview &&
+                         event.getDragboard().hasString()) {
+                     /* allow for both copying and moving, whatever user chooses */
+                     event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                     System.out.println(webEngine.getDocument().getPreviousSibling());
+                 }
+                 
+                 event.consume();
+             }
+         });
+    	 
+    	 webview.setOnDragDropped(new EventHandler <DragEvent>() {
+             public void handle(DragEvent event) {
+                 /* data dropped */
+                 System.out.println("onDragDropped");
+                 /* if there is a string data on dragboard, read it and use it */
+                 Dragboard db = event.getDragboard();
+                 boolean success = false;
+                 if (db.hasString()) {
+                     webEngine.loadContent(webEngine.executeScript("document.documentElement.innerHTML").toString()+ event.getDragboard().getString()); 
+                     success = true;
+                 }
+                 /* let the source know whether the string was successfully 
+                  * transferred and used */
+                 event.setDropCompleted(success);
+                 
+                 event.consume();
+             }
+         });
     	
-    	webEngine.loadContent("<h1> first header </h1>");
-//        btn.setOnAction(new EventHandler<ActionEvent>() {
-//       
-//            @Override
-//            public void handle(ActionEvent event) {
-//                System.out.println("Hello World!");
-//            }
-//        });
+    	    
         
     	top.add(menu, 0, 0);
     	top.add(gridRight, 1, 1);
@@ -136,8 +171,25 @@ public class MainApplication extends Application {
 		Button widget = new Button();
 	    widget.setText("Twitter Widget");
     	
-        Button text = new Button();
+        final Button text = new Button();
         text.setText("Text Box");
+        
+        text.setOnDragDetected(new EventHandler <MouseEvent>() {
+            public void handle(MouseEvent event) {
+                /* drag was detected, start drag-and-drop gesture*/
+                System.out.println("onDragDetected");
+                
+                /* allow any transfer mode */
+                Dragboard db = text.startDragAndDrop(TransferMode.ANY);
+                
+                /* put a string on dragboard */
+                ClipboardContent content = new ClipboardContent();
+                content.putString("<p> Hello </p>");
+                db.setContent(content);
+                
+                event.consume();
+            }
+        });
         
         Button image = new Button();
         image.setText("Image");
@@ -155,6 +207,11 @@ public class MainApplication extends Application {
         grid.add(frame,1, 5);
         grid.setVgap(18);
     	return grid;
+    }
+    
+    public void dragDrop()
+    {
+    	
     }
     
 }
