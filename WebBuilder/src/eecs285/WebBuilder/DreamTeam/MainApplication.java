@@ -7,20 +7,20 @@ package eecs285.WebBuilder.DreamTeam;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -42,11 +42,19 @@ public class MainApplication extends Application {
     	
     	BorderPane root = new BorderPane();
     	GridPane top = new GridPane();
+    	ScrollPane main = new ScrollPane();
+    	//main.setPrefSize(600, 600);
+    	main.setMaxSize(600, 600);
     	HBox menu = new HBox(addFileMenu()); 
         GridPane gridLeft = addLeftMenu();
         GridPane gridRight = addTopMenu();
+     
     	Scene scene = new Scene(root, 700, 750);
     
+    	WebView webview = new WebView();
+    	WebEngine webEngine = webview.getEngine();
+    	
+    	webEngine.loadContent("<h1> first header </h1>");
 //        btn.setOnAction(new EventHandler<ActionEvent>() {
 //       
 //            @Override
@@ -58,11 +66,11 @@ public class MainApplication extends Application {
     	top.add(menu, 0, 0);
     	top.add(gridRight, 1, 1);
     	root.setTop(top);
-    	
         root.setLeft(gridLeft);
-        TextField text = new TextField();
-        text.setMaxSize(600, 600);
-        root.setCenter(text);
+        main.setContent(webview);
+        root.setCenter(main);
+      
+        
         
         
         
