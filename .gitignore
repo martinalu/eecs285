@@ -45,6 +45,5 @@ ehthumbs.db
 Thumbs.db
 
 *.classpath
-*.project
 *.settings
 *.workbench
