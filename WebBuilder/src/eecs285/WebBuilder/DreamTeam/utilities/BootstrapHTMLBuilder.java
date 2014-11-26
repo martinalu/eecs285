@@ -1,4 +1,4 @@
-package eecs285.WebBuilder.DreamTeam.GUI;
+package eecs285.WebBuilder.DreamTeam.utilities;
 
 /**
  * In the last project, I mentioned in the comments that I wanted to make a
@@ -13,5 +13,5 @@ package eecs285.WebBuilder.DreamTeam.GUI;
  */
 
 public class BootstrapHTMLBuilder {
-
+    private String baseHTML = "";
 }
