@@ -41,7 +41,7 @@ public class MainApplication extends Application {
 
 	    @Override
 	    public void handle(ActionEvent event) {
-		System.out.println("RAWR");
+		webEngine.reload();
 	    }
 	});
 
