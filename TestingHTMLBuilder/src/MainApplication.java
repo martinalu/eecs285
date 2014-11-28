@@ -18,19 +18,22 @@ public class MainApplication extends Application {
     public void start(Stage primaryStage) {
 	Button refreshButton = new Button();
 	refreshButton.setText("Refresh");
-	final String html_location = "file://localhost/Users/theProfessional/Documents/gitRepos/eecs285/resources/demo_website/index.html";
 
 	WebView browser = new WebView();
 	WebEngine webEngine = browser.getEngine();
 
-	webEngine.load(html_location);
+	webEngine.load(HTMLBuilder.HTML_LOCATION);
 
 	Pane root = new Pane();
-	root.getChildren().add(refreshButton);
+
 	refreshButton.relocate(617.5, 20);
-	root.getChildren().add(browser);
+
 	browser.relocate(50, 60);
 	browser.setPrefSize(1200, 600);
+
+	root.getChildren().add(refreshButton);
+	root.getChildren().add(browser);
+
 	Scene scene = new Scene(root, 1300, 700);
 
 	primaryStage.setTitle("HTMLBuilderTesting");
