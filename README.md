@@ -45,7 +45,7 @@ Now, the new project is synced to your local
 [The Proper Git Workflow](https://guides.github.com/introduction/flow/)
 >Note: Pull requests are a feature of the github website. We don't need to worry about discussing anything, but if you're unsure about an implementation and you wanna let everyone review the code first, create a pull request by going to the website and hitting the green arrow lookin' button directly above and to the left of the file directory on the project's main page. Remember, we can only see your branch on GitHub if you use "Publish" in the GitHub application, or "push" in the terminal. Otherwise, it stays local and there's no way to review it. Publishing your branches also makes it really easy to see everyone's progress.
 
-[Needed for Java SE 8 & JavaFX](http://www.eclipse.org/efxclipse/install.html#for-the-lazy)
+[e(fx)clipse](http://www.eclipse.org/efxclipse/install.html#for-the-lazy)
 >This will allow you to actually run JavaFX applications in eclipse. Don't ask me why this isn't in the standard distribution.
 
 [JavaFX Tutorial ](http://code.makery.ch/java/javafx-8-tutorial-part1/)
