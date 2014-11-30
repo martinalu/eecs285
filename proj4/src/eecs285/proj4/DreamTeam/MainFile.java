@@ -10,7 +10,7 @@ public class MainFile
 
   public static void main( String[] args )  {
     win = new main_window();
-    win.setMinimumSize(new Dimension(850, 500));
+    win.setMinimumSize(new Dimension(1200, 700));
     win.pack();
     win.setVisible(true);
     win.setResizable(false);
