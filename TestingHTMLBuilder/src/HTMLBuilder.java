@@ -35,7 +35,7 @@ public class HTMLBuilder {
 
 	public Element() {
 	    ID = id_counter++;
-	    parentID = -1;
+	    parentID = 0;
 	    type = "div";
 
 	    elements.get(parentID).childrenIDs.add(ID);
@@ -65,15 +65,13 @@ public class HTMLBuilder {
 
     // TODO: Update these functions to coincide with the data structure setup.
     public void insertElement(int inParentID, String inType, String inContent) {
+	// What needs to happen when I insert an element?
+
+	// The element needs to be created.
 	Element newElement = new Element(inParentID, inType, inContent);
+	// We need to set the childElts array of the parent.
+	elements.get(inParentID).childrenIDs.add(newElement.ID);
 
-	elements.put(inParentID, newElement);
-    }
-
-    public void insertElement(int inParentID, int position) {
-	Element newElement = new Element();
-
-	// Adds to master Map of elements
 	elements.put(inParentID, newElement);
     }
 }
