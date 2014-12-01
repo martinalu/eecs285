@@ -1,4 +1,4 @@
-/*NOTE: I am aware a log of this code is unneccessarily (sp?) written twice, 
+/*NOTE: I am aware a log of this code is unnecessarily (sp?) written twice, 
 I will make prettier tomorrow, just needed to get to work*/
 
 /*ALSO NOTE: this class will not work when you try to login or add a new user 
@@ -6,16 +6,26 @@ I will make prettier tomorrow, just needed to get to work*/
  package eecs285.proj4.DreamTeam.GUI; If you have and it's 
  still not working, check mamp for your local username and password info*/
  
-package eecs285.proj4.DreamTeam.GUI;
+package eecs285.WebBuilder.DreamTeam.GUI;
+import eecs285.WebBuilder.DreamTeam.*;
+import javafx.application.*;
+import javafx.scene.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
+import javafx.collections.*;
+import javafx.event.*;
+
 import javax.swing.*;
 
-public class login_window extends JFrame
+public class login_windows extends JFrame
 {
   /**
    * 
@@ -88,18 +98,26 @@ public class login_window extends JFrame
       }
     });
 
-    // local button
+   // local button
     localButton.addActionListener(new ActionListener()
     {
       public void actionPerformed(ActionEvent e)
       {
-        main_window win;
+        
+        WebView webview = new WebView();
+        WebEngine webEngine = webview.getEngine();
+        ImageView imageView = new ImageView();
+        
+        //Stage primaryStage = null;
+        //MainApplication mainApp = new MainApplication();
+        //mainApp.start(primaryStage);
+        /*main_window win;
         win = new main_window();
         win.setMinimumSize(new Dimension(1200, 700));
         win.pack();
         win.setVisible(true);
         win.setResizable(false);
-        win.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        win.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);*/
       }
     });
 
@@ -110,11 +128,11 @@ public class login_window extends JFrame
   {
 
     panel.setLayout(null);
-    JTextField userText = new JTextField("Username");
+    final JTextField userText = new JTextField("Username");
     userText.setBounds(73, 30, 175, 35);
     panel.add(userText);
 
-    JPasswordField passwordText = new JPasswordField("Password");
+    final JPasswordField passwordText = new JPasswordField("Password");
     passwordText.setBounds(73, 70, 175, 35);
     panel.add(passwordText);
 
@@ -155,19 +173,22 @@ public class login_window extends JFrame
                   + "'" + " AND password = '" + pCheck + "'");
           System.out.println("Database created successfully...");
           if( rs.next() )
-          {
-            main_window win;
+          { 
+            
+            /*Stage primaryStage = null;
+            MainApplication mainApp = new MainApplication();
+            mainApp.start(primaryStage);
             /* ASSUMED I WOULD NEED THESE VARIABLES LATER FOR RETRIEVING INFO IN
              ATTRIBUTES DB and for saving*/
             // String first = rs.getString("username");
             // String second = rs.getString("password");
             // System.out.println(first + second);
-            win = new main_window();
+            /*win = new main_window();
             win.setMinimumSize(new Dimension(1200, 700));
             win.pack();
             win.setVisible(true);
             win.setResizable(false);
-            win.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            win.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);*/
           }
           else
           {
@@ -249,15 +270,15 @@ public class login_window extends JFrame
     panel.add(confPword2);
 
 
-    JTextField userText = new JTextField();
+    final JTextField userText = new JTextField();
     userText.setBounds(120, 30, 190, 30);
     panel.add(userText);
 
-    JPasswordField passwordText = new JPasswordField();
+    final JPasswordField passwordText = new JPasswordField();
     passwordText.setBounds(120, 65, 190, 30);
     panel.add(passwordText);
 
-    JPasswordField passwordText2 = new JPasswordField();
+    final JPasswordField passwordText2 = new JPasswordField();
     passwordText2.setBounds(120, 100, 190, 30);
     panel.add(passwordText2);
 
@@ -302,14 +323,18 @@ public class login_window extends JFrame
             ResultSet rs = stmt
                 .executeQuery("SELECT * FROM Users WHERE username = '"
                     + addUser + "'" + " AND password = '" + addPword + "'");
+            
+            //Stage primaryStage = null;
+            MainApplication mainApp = new MainApplication();
+            //mainApp.start(primaryStage);
 
-            main_window win;
+            /*main_window win;
             win = new main_window();
             win.setMinimumSize(new Dimension(1200, 700));
             win.pack();
             win.setVisible(true);
             win.setResizable(false);
-            win.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            win.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);*/
           }
           catch( SQLException se )
           {
