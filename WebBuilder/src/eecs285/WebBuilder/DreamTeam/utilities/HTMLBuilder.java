@@ -1,3 +1,4 @@
+package eecs285.WebBuilder.DreamTeam.utilities;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -55,10 +56,6 @@ public class HTMLBuilder {
 	    String result = "<" + type;
 	    // Format correctly so style is concatenated properly.
 	    result += style;
-	    if (selfTerminating())
-	    {
-		result += "/>";
-	    }
 	    result += ">";
 	    result += content;
 	    return result;
@@ -66,14 +63,7 @@ public class HTMLBuilder {
 
 	// TODO: What about self-terminating tags.
 	public String AddClosingTag() {
-	    if (selfTerminating()) {
-		return "";
-	    }
 	    return "</" + type + ">";
-	}
-
-	private boolean selfTerminating() {
-	    return (type == "img" || type == "link");
 	}
 
 	// Default Constructor produces ROOT element (body)
@@ -120,6 +110,8 @@ public class HTMLBuilder {
 
 	// The element needs to be created.
 	Element newElement = new Element(inParentID, inType, inContent, inStyle);
+	// We need to set the childElts array of the parent.
+	elements.get(inParentID).childrenIDs.add(newElement.ID);
 
 	elements.put(newElement.ID, newElement);
     }
@@ -130,12 +122,9 @@ public class HTMLBuilder {
 
     public void traverseAndBuild(Element ROOT) {
 	// Based on type, construct element.
-	System.out.println("Started Trav&Build : Element :" + ROOT.ID);
 	generatedHTML += ROOT.AddOpeningTag();
-	if (!ROOT.childrenIDs.isEmpty()) {
-	    for (int i = 0; i < ROOT.childrenIDs.size(); i++) {
-		traverseAndBuild(elements.get(ROOT.childrenIDs.get(i)));
-	    }
+	for (int childID : ROOT.childrenIDs) {
+	    traverseAndBuild(elements.get(childID));
 	}
 	generatedHTML += ROOT.AddClosingTag();
     }
@@ -164,39 +153,10 @@ public class HTMLBuilder {
 	// False overwrites the file. True appends to the end of the file.
 	FileWriter fooWriter = new FileWriter(htmlFile, false);
 	fooWriter.write(generatedHTML);
-	System.out.println(generatedHTML);
 	fooWriter.close();
-    }
-
-    public void recursiveRemove(Element elt) {
-	// If the thing has children ...
-	if (!elt.childrenIDs.isEmpty()) {
-	    for (int childID : elt.childrenIDs) {
-		recursiveRemove(elements.get(childID));
-	    }
-	}
-	System.out.println("Removing Elt : " + elt.ID);
-	// Remove elt from Parent Element childrenID list.
-	for (int i = 0; i < elements.get(elt.parentID).childrenIDs.size(); i++) {
-	    if (elements.get(elt.parentID).childrenIDs.get(i) == elt.ID) {
-		elements.get(elt.parentID).childrenIDs.remove(i);
-	    }
-	}
-	elements.remove(elt.ID);
-    }
-
-    public void updateElement(Element elt, String inType, String inStyle,
-	    String inContent) {
-	elt.type = inType;
-	elt.style = String.format(" style=\"%s\"", inStyle);
-	elt.content = inContent;
     }
 
     public Element getRoot() {
 	return ROOT;
-    }
-
-    public Element getElement(int eltID) {
-	return elements.get(eltID);
     }
 }

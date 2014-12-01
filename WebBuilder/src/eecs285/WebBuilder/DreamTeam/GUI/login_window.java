@@ -6,7 +6,7 @@ I will make prettier tomorrow, just needed to get to work*/
  package eecs285.proj4.DreamTeam.GUI; If you have and it's 
  still not working, check mamp for your local username and password info*/
  
-package eecs285.proj4.DreamTeam.GUI;
+package eecs285.WebBuilder.DreamTeam.GUI;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -17,10 +17,6 @@ import javax.swing.*;
 
 public class login_window extends JFrame
 {
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
 
 
   public static void main(String[] args)

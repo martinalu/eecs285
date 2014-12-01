@@ -44,8 +44,12 @@ public class MainApplication extends Application {
 	HTMLBuilder builder = new HTMLBuilder();
 	builder.insertElement(builder.getRoot().ID, "p", "RAWR",
 		"font-family: Courier New;");
+	builder.insertElement(builder.getRoot().ID, "div", "asd",
+		"text-align: center;");
+	builder.insertElement(2, "p", "rawrarawrawr", "font-family: Courier New");
 	builder.build();
-
+	builder.recursiveRemove(builder.getElement(1));
+	builder.build();
 	refreshButton.setOnAction(new EventHandler<ActionEvent>() {
 
 	    @Override
