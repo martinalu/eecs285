@@ -89,13 +89,13 @@ public class login_window extends JFrame
     {
       public void actionPerformed(ActionEvent e)
       {
-        main_window win;
+        /*main_window win;
         win = new main_window();
         win.setMinimumSize(new Dimension(1200, 700));
         win.pack();
         win.setVisible(true);
         win.setResizable(false);
-        win.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        win.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);*/
       }
     });
 
@@ -106,11 +106,11 @@ public class login_window extends JFrame
   {
 
     panel.setLayout(null);
-    JTextField userText = new JTextField("Username");
+    final JTextField userText = new JTextField("Username");
     userText.setBounds(73, 30, 175, 35);
     panel.add(userText);
 
-    JPasswordField passwordText = new JPasswordField("Password");
+    final JPasswordField passwordText = new JPasswordField("Password");
     passwordText.setBounds(73, 70, 175, 35);
     panel.add(passwordText);
 
@@ -152,9 +152,9 @@ public class login_window extends JFrame
           System.out.println("Database created successfully...");
           if( rs.next() )
           {
-            main_window win;
-            /* ASSUMED I WOULD NEED THESE VARIABLES LATER FOR RETRIEVING INFO IN
-             ATTRIBUTES DB and for saving*/
+            /*main_window win;
+             ASSUMED I WOULD NEED THESE VARIABLES LATER FOR RETRIEVING INFO IN
+             ATTRIBUTES DB and for saving
             // String first = rs.getString("username");
             // String second = rs.getString("password");
             // System.out.println(first + second);
@@ -163,7 +163,7 @@ public class login_window extends JFrame
             win.pack();
             win.setVisible(true);
             win.setResizable(false);
-            win.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            win.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);*/
           }
           else
           {
@@ -245,15 +245,15 @@ public class login_window extends JFrame
     panel.add(confPword2);
 
 
-    JTextField userText = new JTextField();
+    final JTextField userText = new JTextField();
     userText.setBounds(120, 30, 190, 30);
     panel.add(userText);
 
-    JPasswordField passwordText = new JPasswordField();
+    final JPasswordField passwordText = new JPasswordField();
     passwordText.setBounds(120, 65, 190, 30);
     panel.add(passwordText);
 
-    JPasswordField passwordText2 = new JPasswordField();
+    final JPasswordField passwordText2 = new JPasswordField();
     passwordText2.setBounds(120, 100, 190, 30);
     panel.add(passwordText2);
 
@@ -299,13 +299,13 @@ public class login_window extends JFrame
                 .executeQuery("SELECT * FROM Users WHERE username = '"
                     + addUser + "'" + " AND password = '" + addPword + "'");
 
-            main_window win;
+            /*main_window win;
             win = new main_window();
             win.setMinimumSize(new Dimension(1200, 700));
             win.pack();
             win.setVisible(true);
             win.setResizable(false);
-            win.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            win.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);*/
           }
           catch( SQLException se )
           {
