@@ -1,8 +1,16 @@
+import java.util.ArrayList;
+
+import com.sun.deploy.uitoolkit.impl.fx.ui.FXConsole;
+
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebEngine;
@@ -14,27 +22,36 @@ import javafx.stage.Stage;
  * @author theProfessional
  */
 public class MainApplication extends Application {
+
     @Override
     public void start(Stage primaryStage) {
-	Button refreshButton = new Button();
-	refreshButton.setText("Refresh");
-
-	WebView browser = new WebView();
-	WebEngine webEngine = browser.getEngine();
-
-	webEngine.load(HTMLBuilder.HTML_LOAD_LOCATION);
 
 	Pane root = new Pane();
 
-	refreshButton.relocate(617.5, 20);
-
-	browser.relocate(50, 60);
+	// Setup Webpage Preview componants
+	WebView browser = new WebView();
+	WebEngine webEngine = browser.getEngine();
+	webEngine.load(HTMLBuilder.HTML_LOAD_LOCATION);
+	browser.relocate(175, 85);
 	browser.setPrefSize(1200, 600);
-
-	root.getChildren().add(refreshButton);
 	root.getChildren().add(browser);
 
-	Scene scene = new Scene(root, 1300, 700);
+	ListView<String> widgetOptions = new ListView<String>();
+	widgetOptions.setEditable(true);
+	ObservableList<String> widgetSelection = FXCollections
+		.observableArrayList("Header", "Paragraph", "Image",
+			"Twitter Feed", "Ordered List", "Unordered List",
+			"List Item");
+	widgetOptions.setItems(widgetSelection);
+	widgetOptions.setPrefSize(153, 575);
+
+	// Widget Drag and Drop Pane
+	ScrollPane widgetPane = new ScrollPane(widgetOptions);
+	widgetPane.relocate(10, 85);
+	widgetPane.setPrefSize(155, 600);
+	root.getChildren().add(widgetPane);
+
+	Scene scene = new Scene(root, 1400, 700);
 
 	primaryStage.setTitle("HTMLBuilderTesting");
 	primaryStage.setScene(scene);
@@ -43,16 +60,8 @@ public class MainApplication extends Application {
 	// Some Test Code.
 	HTMLBuilder builder = new HTMLBuilder();
 	builder.createTemplateAlpha();
+	builder.build();
 	webEngine.reload();
-	
-	refreshButton.setOnAction(new EventHandler<ActionEvent>() {
-
-	    @Override
-	    public void handle(ActionEvent event) {
-		webEngine.reload();
-	    }
-	});
-
     }
 
     /**

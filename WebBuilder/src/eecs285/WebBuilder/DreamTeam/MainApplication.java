@@ -60,10 +60,6 @@ import javax.swing.event.ChangeListener;
 import eecs285.WebBuilder.DreamTeam.utilities.HTMLBuilder;
 import eecs285.WebBuilder.DreamTeam.utilities.HTMLBuilder.Element;
 
-/**
- *
- * @author theProfessional
- */
 public class MainApplication extends Application {
 
     private static WebView webview = new WebView();

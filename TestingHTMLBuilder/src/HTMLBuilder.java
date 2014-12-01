@@ -62,18 +62,22 @@ public class HTMLBuilder {
 
 	public String AddOpeningTag() {
 	    String result = "<" + type;
-	    // Format correctly so style is concatenated properly.
 	    result += style;
+	    result += htmlClass;
 	    if (selfTerminating()) {
 		result += "/>";
+		return result;
 	    }
 	    result += ">";
 	    result += content;
-	    return result;
+	    if (type == "div" || type == "span") {
+		return result;
+	    }
+	    return result += "</" + type + ">";
 	}
 
 	public String AddClosingTag() {
-	    if (selfTerminating()) {
+	    if (selfTerminating() || !(type == "div" || type == "span")) {
 		return "";
 	    }
 	    return "</" + type + ">";
@@ -92,23 +96,6 @@ public class HTMLBuilder {
 	    type = "body";
 	}
 
-	// One of these should take an arraylist of style options.
-	public Element(int inParentID, String inType, String inContent,
-		String inStyle) {
-	    ID = id_counter++;
-
-	    parentID = inParentID;
-	    type = inType;
-	    content = inContent;
-
-	    // Because the "style" varaiable has a prefix that must be kept
-	    // constant,
-	    style = String.format(" style=\"%s\"", inStyle);
-
-	    // Updates parent element's list of children.
-	    elements.get(inParentID).childrenIDs.add(ID);
-	}
-
 	public Element(int inParentID, String inType, String inContent,
 		String inStyle, String inHtmlClass) {
 	    ID = id_counter++;
@@ -119,9 +106,13 @@ public class HTMLBuilder {
 
 	    // Because the "style" varaiable has a prefix that must be kept
 	    // constant,
-	    style = String.format(" style=\"%s\"", inStyle);
+	    if (inStyle != "") {
+		style = String.format(" style=\"%s\"", inStyle);
+	    }
 
-	    htmlClass = String.format("class=\"%s\" ", inHtmlClass);
+	    if (inHtmlClass != "") {
+		htmlClass = String.format(" class=\"%s\" ", inHtmlClass);
+	    }
 
 	    // Updates parent element's list of children.
 	    elements.get(inParentID).childrenIDs.add(ID);
@@ -137,9 +128,19 @@ public class HTMLBuilder {
 	}
     }
 
-    public void insertElement(int inParentID, String inType, String inContent,
-	    String inStyle) {
-	Element newElement = new Element(inParentID, inType, inContent, inStyle);
+    public void insertAfter(int targetID, String inType, String inContent,
+	    String inStyle, String inHtmlClass) {
+
+	Element newElement = new Element(elements.get(targetID).parentID,
+		inType, inContent, inStyle, inHtmlClass);
+
+	elements.put(newElement.ID, newElement);
+    }
+
+    public void insertInto(int targetID, String inType, String inContent,
+	    String inStyle, String inHtmlClass) {
+	Element newElement = new Element(targetID, inType, inContent, inStyle,
+		inHtmlClass);
 
 	elements.put(newElement.ID, newElement);
     }
@@ -242,15 +243,33 @@ public class HTMLBuilder {
 	ArrayList<Element> temp = new ArrayList<Element>();
 	temp.add(ROOT);
 	for (int i = 0; i < ROOT.childrenIDs.size(); i++) {
-	    temp.add(elements.get(ROOT.childrenIDs.get(i)));
+	    temp.addAll(arrayListOfElements(elements.get(ROOT.childrenIDs
+		    .get(i))));
 	}
-
-	return temp; // + arrayListOfElements(ROOT);
+	return temp;
 
     }
 
     public void createTemplateAlpha() {
 	insertElement(ROOT.ID, "div", "", "height: 25px;", "container-fluid");
-	// insertElement(inParentID, inType, inContent, inStyle, inHtmlClass)
+	insertElement(ROOT.ID, "div", "",
+		"height: 300px; background-color: #FFAAAA;", "container");
+	insertInto(ROOT.childrenIDs.get(1), "div", "", "", "row");
+	insertInto(3, "div", "", "", "col-sm-4");
+	insertInto(4, "h1", "A Template For You!", "", "");
+	insertAfter(3, "div", "", "margin-top: 25px;", "col-md-8");
+	// <h4>
+	// This is where a short description of how great a person you are would
+	// go.
+	// </h4>
+	// <h6>
+	// If anyone thought that about you.
+	// </h6>
+	insertInto(
+		5,
+		"h4",
+		"Descriptions of things! All kinds- any single thing you can think of!",
+		"", "");
+	insertAfter(6, "h6", "Updated only on Wednesdays.", "", "");
     }
 }
