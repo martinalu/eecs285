@@ -50,6 +50,8 @@ public class MainApplication extends Application {
 	builder.build();
 	builder.recursiveRemove(builder.getElement(1));
 	builder.build();
+	
+	
 	refreshButton.setOnAction(new EventHandler<ActionEvent>() {
 
 	    @Override

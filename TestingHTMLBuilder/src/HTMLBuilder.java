@@ -19,6 +19,7 @@ import java.util.Map;
  *
  */
 public class HTMLBuilder {
+    // TODO: Move these to utils.
     public static final String HTML_LOAD_LOCATION = "file:///Users/theProfessional/Documents/gitRepos/eecs285/resources/demo_website/index.html";
     public static final String HTML_SAVE_LOCATION = "/Users/theProfessional/Documents/gitRepos/eecs285/resources/demo_website/index.html";
     private static int id_counter = 0;
@@ -46,17 +47,17 @@ public class HTMLBuilder {
 	// EX: <p>ContentVar</p>
 	public String content = "";
 
+	public String htmlClass = "";
+
 	// This is the string that will be used write the style options to the
 	// element. EX: <p style="font-family: User Selected Font Here"></p>
 	public String style = "";
 
-	// TODO: What about img src? Or any non-style parameters?
 	public String AddOpeningTag() {
 	    String result = "<" + type;
 	    // Format correctly so style is concatenated properly.
 	    result += style;
-	    if (selfTerminating())
-	    {
+	    if (selfTerminating()) {
 		result += "/>";
 	    }
 	    result += ">";
@@ -64,7 +65,6 @@ public class HTMLBuilder {
 	    return result;
 	}
 
-	// TODO: What about self-terminating tags.
 	public String AddClosingTag() {
 	    if (selfTerminating()) {
 		return "";
@@ -73,7 +73,7 @@ public class HTMLBuilder {
 	}
 
 	private boolean selfTerminating() {
-	    return (type == "img" || type == "link");
+	    return (type == "img" || type == "link" || type == "widget");
 	}
 
 	// Default Constructor produces ROOT element (body)
@@ -101,9 +101,26 @@ public class HTMLBuilder {
 	    // Updates parent element's list of children.
 	    elements.get(inParentID).childrenIDs.add(ID);
 	}
-    }
 
-    // TODO: HTMLBuilder Constructor
+	public Element(int inParentID, String inType, String inContent,
+		String inStyle, String inHtmlClass) {
+	    ID = id_counter++;
+
+	    parentID = inParentID;
+	    type = inType;
+	    content = inContent;
+
+	    // Because the "style" varaiable has a prefix that must be kept
+	    // constant,
+	    style = String.format(" style=\"%s\"", inStyle);
+
+	    htmlClass = String.format("class=\"%s\" ", inHtmlClass);
+
+	    // Updates parent element's list of children.
+	    elements.get(inParentID).childrenIDs.add(ID);
+	}
+    }
+    
     public HTMLBuilder() {
 	ROOT = new Element();
 	try {
@@ -113,31 +130,42 @@ public class HTMLBuilder {
 	}
     }
 
-    // TODO: Update these functions to coincide with the data structure setup.
     public void insertElement(int inParentID, String inType, String inContent,
 	    String inStyle) {
-	// What needs to happen when I insert an element?
-
-	// The element needs to be created.
 	Element newElement = new Element(inParentID, inType, inContent, inStyle);
 
 	elements.put(newElement.ID, newElement);
     }
 
-    // TODO: What do we do about self terminating tags? (img, for instance)
-    // Self terminating tags will always be leaf nodes with an empty string for
-    // the "content" member variable .
+    public void insertElement(int inParentID, String inType, String inContent,
+	    String inStyle, String inHtmlClass) {
+
+	Element newElement = new Element(inParentID, inType, inContent,
+		inStyle, inHtmlClass);
+
+	elements.put(newElement.ID, newElement);
+    }
 
     public void traverseAndBuild(Element ROOT) {
 	// Based on type, construct element.
 	System.out.println("Started Trav&Build : Element :" + ROOT.ID);
-	generatedHTML += ROOT.AddOpeningTag();
-	if (!ROOT.childrenIDs.isEmpty()) {
-	    for (int i = 0; i < ROOT.childrenIDs.size(); i++) {
-		traverseAndBuild(elements.get(ROOT.childrenIDs.get(i)));
-	    }
+	if (ROOT.selfTerminating()) {
+	    generatedHTML += buildWidget(ROOT);
 	}
-	generatedHTML += ROOT.AddClosingTag();
+	else {
+	    generatedHTML += ROOT.AddOpeningTag();
+	    if (!ROOT.childrenIDs.isEmpty()) {
+		for (int i = 0; i < ROOT.childrenIDs.size(); i++) {
+		    traverseAndBuild(elements.get(ROOT.childrenIDs.get(i)));
+		}
+	    }
+	    generatedHTML += ROOT.AddClosingTag();	    
+	}
+    }
+
+    private String buildWidget(Element ROOT) {
+	utils constants = new utils();
+	return constants.widgets.get(ROOT.content);
     }
 
     public void build() {
@@ -198,5 +226,21 @@ public class HTMLBuilder {
 
     public Element getElement(int eltID) {
 	return elements.get(eltID);
+    }
+
+    // TODO: Broken
+    public ArrayList<Element> arrayListOfElements(Element ROOT) {
+	ArrayList<Element> temp = new ArrayList<Element>();
+	temp.add(ROOT);
+	for (int i = 0; i < ROOT.childrenIDs.size(); i++) {
+	    temp.add(elements.get(ROOT.childrenIDs.get(i)));
+	}
+
+	return temp; // + arrayListOfElements(ROOT);
+
+    }
+
+    public void createTemplateAlpha() {
+
     }
 }
