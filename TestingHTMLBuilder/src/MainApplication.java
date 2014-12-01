@@ -40,6 +40,12 @@ public class MainApplication extends Application {
 	primaryStage.setScene(scene);
 	primaryStage.show();
 
+	// Some Test Code.
+	HTMLBuilder builder = new HTMLBuilder();
+	builder.insertElement(builder.getRoot().ID, "p", "RAWR",
+		"font-family: Courier New;");
+	builder.build();
+
 	refreshButton.setOnAction(new EventHandler<ActionEvent>() {
 
 	    @Override
