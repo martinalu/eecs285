@@ -42,10 +42,9 @@ public class MainApplication extends Application {
 
 	// Some Test Code.
 	HTMLBuilder builder = new HTMLBuilder();
-	builder.insertElement(builder.getRoot().ID, "p", "RAWR",
-		"font-family: Courier New;");
-	builder.build();
-
+	builder.createTemplateAlpha();
+	webEngine.reload();
+	
 	refreshButton.setOnAction(new EventHandler<ActionEvent>() {
 
 	    @Override
