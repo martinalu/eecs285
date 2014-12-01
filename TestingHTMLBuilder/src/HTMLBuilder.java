@@ -117,6 +117,10 @@ public class HTMLBuilder {
 	    // Updates parent element's list of children.
 	    elements.get(inParentID).childrenIDs.add(ID);
 	}
+	
+	public String toString() {
+	    return "<" + type + " ";
+	}
     }
 
     public HTMLBuilder() {
@@ -238,7 +242,6 @@ public class HTMLBuilder {
 	return elements.get(eltID);
     }
 
-    // TODO: Broken
     public ArrayList<Element> arrayListOfElements(Element ROOT) {
 	ArrayList<Element> temp = new ArrayList<Element>();
 	temp.add(ROOT);

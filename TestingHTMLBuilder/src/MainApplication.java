@@ -43,13 +43,20 @@ public class MainApplication extends Application {
 			"Twitter Feed", "Ordered List", "Unordered List",
 			"List Item");
 	widgetOptions.setItems(widgetSelection);
-	widgetOptions.setPrefSize(153, 575);
+	widgetOptions.setPrefSize(145, 575);
 
 	// Widget Drag and Drop Pane
 	ScrollPane widgetPane = new ScrollPane(widgetOptions);
-	widgetPane.relocate(10, 85);
-	widgetPane.setPrefSize(155, 600);
+	widgetPane.relocate(3, 385);
+	widgetPane.setPrefSize(165, 300);
 	root.getChildren().add(widgetPane);
+
+	// Create list of elements.
+	ListView<String> listOfElements = new ListView<String>();
+	
+	
+	// Element Selection Pane
+	ScrollPane elementPane = new ScrollPane();
 
 	Scene scene = new Scene(root, 1400, 700);
 
@@ -62,6 +69,7 @@ public class MainApplication extends Application {
 	builder.createTemplateAlpha();
 	builder.build();
 	webEngine.reload();
+
     }
 
     /**
