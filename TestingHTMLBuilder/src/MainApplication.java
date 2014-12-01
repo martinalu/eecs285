@@ -22,7 +22,7 @@ public class MainApplication extends Application {
 	WebView browser = new WebView();
 	WebEngine webEngine = browser.getEngine();
 
-	webEngine.load(HTMLBuilder.HTML_LOCATION);
+	webEngine.load(HTMLBuilder.HTML_LOAD_LOCATION);
 
 	Pane root = new Pane();
 
@@ -39,6 +39,12 @@ public class MainApplication extends Application {
 	primaryStage.setTitle("HTMLBuilderTesting");
 	primaryStage.setScene(scene);
 	primaryStage.show();
+
+	// Some Test Code.
+	HTMLBuilder builder = new HTMLBuilder();
+	builder.insertElement(builder.getRoot().ID, "p", "RAWR",
+		"font-family: Courier New;");
+	builder.build();
 
 	refreshButton.setOnAction(new EventHandler<ActionEvent>() {
 
