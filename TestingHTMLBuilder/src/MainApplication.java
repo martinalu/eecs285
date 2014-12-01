@@ -22,7 +22,7 @@ public class MainApplication extends Application {
 	WebView browser = new WebView();
 	WebEngine webEngine = browser.getEngine();
 
-	webEngine.load(HTMLBuilder.HTML_LOCATION);
+	webEngine.load(HTMLBuilder.HTML_LOAD_LOCATION);
 
 	Pane root = new Pane();
 

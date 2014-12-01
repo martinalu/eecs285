@@ -19,7 +19,8 @@ import java.util.Map;
  *
  */
 public class HTMLBuilder {
-    public static final String HTML_LOCATION = "/Users/theProfessional/Documents/gitRepos/eecs285/resources/demo_website/index.html";
+    public static final String HTML_LOAD_LOCATION = "file:///Users/theProfessional/Documents/gitRepos/eecs285/resources/demo_website/index.html";
+    public static final String HTML_SAVE_LOCATION = "/Users/theProfessional/Documents/gitRepos/eecs285/resources/demo_website/index.html";
     private static int id_counter = 0;
     public String generatedHTML = "";
 
@@ -47,7 +48,7 @@ public class HTMLBuilder {
 
 	// This is the string that will be used write the style options to the
 	// element. EX: <p style="font-family: User Selected Font Here"></p>
-	public String style = " style=\"\"";
+	public String style = "";
 
 	// TODO: What about img src? Or any non-style parameters?
 	public String AddOpeningTag() {
@@ -69,9 +70,11 @@ public class HTMLBuilder {
 	    ID = 0;
 	    id_counter++;
 	    parentID = -1;
+
 	    type = "body";
 	}
 
+	// One of these should take an arraylist of style options.
 	public Element(int inParentID, String inType, String inContent,
 		String inStyle) {
 	    ID = id_counter++;
@@ -82,7 +85,7 @@ public class HTMLBuilder {
 
 	    // Because the "style" varaiable has a prefix that must be kept
 	    // constant,
-//	    style += inStyle;
+	    style = String.format(" style=\"%s\"", inStyle);
 
 	    // Updates parent element's list of children.
 	    elements.get(inParentID).childrenIDs.add(ID);
@@ -93,9 +96,8 @@ public class HTMLBuilder {
     public HTMLBuilder() {
 	ROOT = new Element();
 	try {
-	    elements.put(ROOT.ID, ROOT);	    
-	}
-	catch (Exception e){
+	    elements.put(ROOT.ID, ROOT);
+	} catch (Exception e) {
 	    System.out.println(ROOT.ID);
 	}
     }
@@ -134,6 +136,8 @@ public class HTMLBuilder {
 	// sequentially. Starting with the root element, body.
 	traverseAndBuild(ROOT);
 
+	generatedHTML += "</html>";
+
 	// We the write the changes to the file.
 	try {
 	    updateProjectFiles();
@@ -144,7 +148,7 @@ public class HTMLBuilder {
     }
 
     private void updateProjectFiles() throws IOException {
-	File htmlFile = new File(HTML_LOCATION);
+	File htmlFile = new File(HTML_SAVE_LOCATION);
 	// False overwrites the file. True appends to the end of the file.
 	FileWriter fooWriter = new FileWriter(htmlFile, false);
 	fooWriter.write(generatedHTML);
