@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -18,7 +19,7 @@ import java.util.Map;
  *
  */
 public class HTMLBuilder {
-    public static final String HTML_LOCATION = "file://localhost/Users/theProfessional/Documents/gitRepos/eecs285/resources/demo_website/index.html";
+    public static final String HTML_LOCATION = "/Users/theProfessional/Documents/gitRepos/eecs285/resources/demo_website/index.html";
     private static int id_counter = 0;
     public String generatedHTML = "";
 
@@ -27,7 +28,7 @@ public class HTMLBuilder {
 
     // Master data structure of all Elements.
     // ID -> Element.
-    private static Map<Integer, Element> elements;
+    private static Map<Integer, Element> elements = new HashMap<Integer, Element>();
 
     // This will always initialize a body tag with the values found in the
     // default element constructor.
@@ -35,7 +36,7 @@ public class HTMLBuilder {
 
     public class Element {
 	public final int ID;
-	public ArrayList<Integer> childrenIDs;
+	public ArrayList<Integer> childrenIDs = new ArrayList<Integer>();
 
 	public int parentID;
 	public String type = "";
@@ -51,8 +52,10 @@ public class HTMLBuilder {
 	// TODO: What about img src? Or any non-style parameters?
 	public String AddOpeningTag() {
 	    String result = "<" + type;
+	    // Format correctly so style is concatenated properly.
 	    result += style;
 	    result += ">";
+	    result += content;
 	    return result;
 	}
 
@@ -79,7 +82,7 @@ public class HTMLBuilder {
 
 	    // Because the "style" varaiable has a prefix that must be kept
 	    // constant,
-	    style += inStyle;
+//	    style += inStyle;
 
 	    // Updates parent element's list of children.
 	    elements.get(inParentID).childrenIDs.add(ID);
