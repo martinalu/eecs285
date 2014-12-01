@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class utils {
     public static final String BASE_HTML = "<!DOCTYPE html><html lang=\"\"><head>"
 	    + "<meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
@@ -19,4 +22,12 @@ public class utils {
     	+ "<link rel=\"shortcut icon\" href=\"\"><link rel=\"stylesheet\""
     	+ " href=\"/bootstrap/css/bootstrap.css\"><style>*"
     	+ " {border: 1px blue dashed;}</style></head>\n\n";
+    
+    public static final String TWITTER_WIDGET = "";
+    
+    public static final Map<String, String> widgets = new HashMap<String, String>();
+    
+    public utils() {
+	widgets.put("twitter", TWITTER_WIDGET);
+    }
 }

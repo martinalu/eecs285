@@ -25,6 +25,13 @@ public class HTMLBuilder {
     private static int id_counter = 0;
     public String generatedHTML = "";
 
+    // This element will always be the parent element used to append a list onto
+    // the end of us.
+    public Element runningParent;
+
+    // Last element inserted into the structure.
+    public Element newestElement;
+
     // TODO: A vector is not gonna work. Use a map
     // of ID-Element pairs.
 
@@ -120,7 +127,7 @@ public class HTMLBuilder {
 	    elements.get(inParentID).childrenIDs.add(ID);
 	}
     }
-    
+
     public HTMLBuilder() {
 	ROOT = new Element();
 	try {
@@ -146,20 +153,22 @@ public class HTMLBuilder {
 	elements.put(newElement.ID, newElement);
     }
 
+    // TODO: Add insertElement method that allows for elements to be inserted
+    // between two other elements with the same parent id.
+
     public void traverseAndBuild(Element ROOT) {
 	// Based on type, construct element.
 	System.out.println("Started Trav&Build : Element :" + ROOT.ID);
 	if (ROOT.selfTerminating()) {
 	    generatedHTML += buildWidget(ROOT);
-	}
-	else {
+	} else {
 	    generatedHTML += ROOT.AddOpeningTag();
 	    if (!ROOT.childrenIDs.isEmpty()) {
 		for (int i = 0; i < ROOT.childrenIDs.size(); i++) {
 		    traverseAndBuild(elements.get(ROOT.childrenIDs.get(i)));
 		}
 	    }
-	    generatedHTML += ROOT.AddClosingTag();	    
+	    generatedHTML += ROOT.AddClosingTag();
 	}
     }
 
@@ -241,6 +250,7 @@ public class HTMLBuilder {
     }
 
     public void createTemplateAlpha() {
-
+	insertElement(ROOT.ID, "div", "", "height: 25px;", "container-fluid");
+	// insertElement(inParentID, inType, inContent, inStyle, inHtmlClass)
     }
 }
