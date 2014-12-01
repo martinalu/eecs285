@@ -1,10 +1,15 @@
 package eecs285.WebBuilder.DreamTeam;
 
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -14,6 +19,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -34,12 +40,25 @@ import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeListener;
+
+//import eecs285.WebBuilder.DreamTeam.JOutlookBar;
+import eecs285.WebBuilder.DreamTeam.utilities.HTMLBuilder;
+import eecs285.WebBuilder.DreamTeam.utilities.HTMLBuilder.Element;
 
 /**
  *
@@ -50,6 +69,10 @@ public class MainApplication extends Application {
     private static WebView webview = new WebView();
     private static WebEngine webEngine = webview.getEngine();
     private static ImageView imageView = new ImageView();
+    private static DefaultListModel elementList;
+    private static Accordion accordion = new Accordion();
+    private static HTMLBuilder builder = new HTMLBuilder();
+    private static TitledPane[] pane = new TitledPane[100];
 
     @Override
     public void start(Stage primaryStage) {
@@ -58,14 +81,18 @@ public class MainApplication extends Application {
 	GridPane top = new GridPane();
 	ScrollPane main = new ScrollPane();
 	main.setMaxSize(600, 600);
+	GridPane left = new GridPane();
+	GridPane leftmenu = addLeftMenu();
 
 	HBox menu = new HBox(addFileMenu());
-	GridPane gridLeft = addLeftMenu();
-	GridPane gridRight = addTopMenu();
+	String element = "<head id=\" 0 \">";
+	pane[0] = addButton(element, 0);
+	accordion.getPanes().add(pane[0]);
 
-	Scene scene = new Scene(root, 700, 750);
+	Scene scene = new Scene(root, 900, 750);
+	webEngine.load(HTMLBuilder.HTML_LOAD_LOCATION);
+	elementList = new DefaultListModel();
 
-	webEngine.loadContent("<h1> first header </h1>");
 	webview.setContextMenuEnabled(true);
 
 	webview.setOnDragOver(new EventHandler<DragEvent>() {
@@ -122,7 +149,6 @@ public class MainApplication extends Application {
 			final boolean success = false;
 
 			if (textarea.getText() == null) {
-			    System.out.println(db.getString());
 			    event.consume();
 			} else {
 			    addToHtml(dbString, add);
@@ -145,10 +171,12 @@ public class MainApplication extends Application {
 	    }
 	});
 
+	left.add(accordion, 0, 0);
+	left.add(leftmenu, 0, 1);
 	top.add(menu, 0, 0);
-	top.add(gridRight, 1, 1);
+
 	root.setTop(top);
-	root.setLeft(gridLeft);
+	root.setLeft(left);
 	main.setContent(webview);
 	root.setCenter(main);
 
@@ -167,17 +195,31 @@ public class MainApplication extends Application {
 
     public void addToHtml(String dbString, String add) {
 
+	int size = elementList.size();
 	if (dbString == "paragraph") {
-	    add = "<p>" + add + "</p>";
-	    webEngine.loadContent(webEngine.executeScript(
-		    "document.documentElement.innerHTML").toString()
-		    + add);
+	    System.out.println(builder.getRoot().ID);
+	    builder.insertElement(builder.getRoot().ID, "p", add, " ");
+	    builder.build();
+	    webEngine.reload();
+	    size = size + 1;
+	    String element = "<p id=\"" + String.valueOf(size) + " \">";
+	    elementList.addElement(element);
+	    pane[size] = addButton(element, size);
+	    accordion.getPanes().add(pane[size]);
+
 	} else if (dbString == "header") {
 
 	    add = "<h1>" + add + "</h1>";
-	    webEngine.loadContent(webEngine.executeScript(
-		    "document.documentElement.innerHTML").toString()
-		    + add);
+
+	    builder.insertElement(builder.getElement(size).ID, "h1", add, " ");
+	    builder.build();
+	    webEngine.reload();
+	    size = size + 1;
+	    String element = "<h1 id=\"" + String.valueOf(size) + " \">";
+	    elementList.addElement(element);
+	    pane[size] = addButton(element, size);
+	    accordion.getPanes().add(pane[size]);
+
 	}
 
     }
@@ -196,36 +238,12 @@ public class MainApplication extends Application {
 	return menu;
     }
 
-    public GridPane addTopMenu() {
-	GridPane grid = new GridPane();
-	Label font = new Label(" Fonts:");
-	final ComboBox<String> fonts = new ComboBox<String>();
-	fonts.setItems(FXCollections.observableArrayList("Sans-serif", "Arial",
-		"Times New Roman"));
-	fonts.getSelectionModel().select("Sans-serif");
-
-	Label color = new Label(" Colors:");
-	ComboBox<String> colors = new ComboBox<String>();
-	colors.setItems(FXCollections.observableArrayList("Black", "Blue",
-		"Red"));
-	colors.getSelectionModel().select("Black");
-
-	Label properties = new Label("Element Properties");
-	properties.setFont(Font.font("Sans-serif", 14));
-
-	grid.add(properties, 1, 1);
-	grid.add(font, 2, 1);
-	grid.add(fonts, 3, 1);
-	grid.add(color, 4, 1);
-	grid.add(colors, 5, 1);
-	grid.setHgap(5);
-	return grid;
-    }
-
     public GridPane addLeftMenu() {
 
 	GridPane grid = new GridPane();
 	final Stage stage = new Stage();
+
+	accordion = new Accordion();
 
 	Button widget = new Button();
 	widget.setText("Twitter Widget");
@@ -236,7 +254,6 @@ public class MainApplication extends Application {
 	header.setOnDragDetected(new EventHandler<MouseEvent>() {
 	    public void handle(MouseEvent event) {
 		/* drag was detected, start drag-and-drop gesture */
-		System.out.println("onDragDetected");
 
 		/* allow any transfer mode */
 		Dragboard db = header.startDragAndDrop(TransferMode.ANY);
@@ -256,7 +273,6 @@ public class MainApplication extends Application {
 	text.setOnDragDetected(new EventHandler<MouseEvent>() {
 	    public void handle(MouseEvent event) {
 		/* drag was detected, start drag-and-drop gesture */
-		System.out.println("onDragDetected");
 
 		/* allow any transfer mode */
 		Dragboard db = text.startDragAndDrop(TransferMode.ANY);
@@ -292,14 +308,108 @@ public class MainApplication extends Application {
 	Label content = new Label("Content Frames");
 	content.setFont(Font.font("Sans-serif", 14));
 
-	grid.add(content, 1, 1);
-	grid.add(widget, 1, 2);
-	grid.add(header, 1, 3);
-	grid.add(text, 1, 4);
-	grid.add(image, 1, 5);
-	grid.add(background, 1, 6);
-	grid.setVgap(18);
+	GridPane spPane = new GridPane();
+
+	spPane.add(widget, 1, 1);
+	spPane.add(header, 1, 2);
+	spPane.add(text, 1, 3);
+	spPane.add(image, 1, 4);
+	spPane.add(background, 1, 5);
+	ScrollPane sp = new ScrollPane();
+	sp.setContent(spPane);
+	spPane.setVgap(10);
+
+	grid.add(accordion, 1, 1);
+	grid.add(sp, 1, 3);
+	grid.setVgap(10);
+
 	return grid;
+    }
+
+    static TitledPane addButton(String element, final int id) {
+
+	TitledPane tpane = new TitledPane();
+	GridPane grid = new GridPane();
+	grid.add(new Label("Font-style"), 0, 0);
+	final ComboBox<String> style = new ComboBox<String>();
+	final ObservableList<String> styledata = FXCollections
+		.observableArrayList();
+
+	grid.add(style, 0, 1);
+
+	style.getItems().addAll("Normal", "Bold", "Italic");
+	style.setValue("Normal");
+
+	// style.setOnAction(new ChangeListener<>(){
+	//
+	//
+	// public void changed(ObservableValue ov, String old, String newone)
+	// {
+	//
+	// String style_string = style.getValue().toString();//get the selected
+	// item
+	// System.out.println(style_string + " " + String.valueOf(id)
+	// + " " + builder.getElement(id).content);
+	//
+	// // do your thing here
+	// String change = "";
+	// if (style_string == "Bold") {
+	// change = "font-weight: bold;";
+	// } else if (style_string == "Italic") {
+	// change = "font-style: italic;";
+	// } else {
+	// change = builder.getElement(id).style;
+	// }
+	//
+	// builder.updateElement(builder.getElement(id),
+	// builder.getElement(id).type, builder.getElement(id).style + change,
+	// builder.getElement(id).content);
+	// builder.build();
+	// webEngine.reload();
+	//
+	// }
+	// });
+
+	grid.add(new Label("Font-color"), 1, 0);
+	final JComboBox color = new JComboBox();
+
+	SwingNode node = new SwingNode();
+	node.setContent(color);
+	grid.add(node, 1, 1);
+
+	// color.getItems().addAll("Black","Blue", "Red");
+	// color.setValue("Black");
+
+	color.addItem("Black");
+	color.addItem("Blue");
+	color.addItem("Red");
+
+	color.addActionListener(new ActionListener() {
+	    public void actionPerformed(java.awt.event.ActionEvent e) {
+		String color_string = color.getSelectedItem().toString();
+		// do your thing here
+		String change = "";
+		if (color_string == "Blue") {
+		    change = "color: blue;";
+		} else if (color_string == "Red") {
+		    change = "color: red;";
+		} else {
+		    change = builder.getElement(id).style;
+		}
+		System.out.println(change);
+		builder.updateElement(builder.getElement(id),
+			builder.getElement(id).type,
+			builder.getElement(id).style,
+			builder.getElement(id).content);
+		builder.build();
+		webEngine.reload();
+	    }
+
+	});
+
+	tpane.setContent(grid);
+	tpane.setText(element);
+	return tpane;
     }
 
     public void dragDrop() {
